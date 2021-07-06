@@ -3,6 +3,8 @@ import * as Config from "../utils/Config";
 import * as Renderers from "../utils/Renderers";
 import * as Types from "../utils/Types";
 import FilterOptions from "./FilterOptions";
+import * as rowCount from "./RowMarker";
+import * as Orphans from "./OrphanTableRows"
 
 const SideBar = (props: Types.SideBarProps): JSX.Element => {
   const [state] = props.stateManager;
@@ -30,8 +32,10 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
         </p>
       </div>
       <div id="waypoints">
-        <h1>cBioPortal Instances</h1>
-        <FilterOptions stateManager={props.stateManager} />
+     <div id = "tableHeader"> 
+      <h1> cBioPortal Instances: <Renderers.tableRowCounterTwo /> </h1>
+    </div>        
+<FilterOptions stateManager={props.stateManager} />
         <div className="tableFixHead">
           <table>
             {Renderers.createWaypointsTableHead(Config.tableHeaderKeys)}
@@ -44,6 +48,8 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
       </div>
       <div id="waypoint-details">
         <h1>Selected Instance Details</h1>
+        <h2>Amount of Waypoints: <Renderers.waypointAmount /></h2>
+
         <div className="tableFixHead">{detailsContent}</div>
       </div>
     </div>

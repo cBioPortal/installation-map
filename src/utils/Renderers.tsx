@@ -9,6 +9,8 @@ import * as Types from "./Types";
 /////////////////
 // MapChart.tsx
 /////////////////
+var rowCounter = 0;
+var waypointCounter = 0;
 
 export const handleDimensions = (inFullMode: boolean): Types.Dimensions => {
   return inFullMode ? Config.fullModeDimensions : Config.smallModeDimensions;
@@ -351,6 +353,8 @@ export const createWaypointsTableBody = (
 ): JSX.Element => {
   const [state] = stateManager;
   const originalRows = state.allCombinedRows;
+  rowCounter = state.rows.length - 2;
+  waypointCounter = originalRows.length;
   const filterPredicate = getFilterPredicate(state);
   return (
     <tbody>
@@ -360,6 +364,20 @@ export const createWaypointsTableBody = (
     </tbody>
   );
 };
+
+
+
+export const tableRowCounterTwo = () =>{
+  return(
+    <div>{rowCounter}</div>
+  )
+}
+
+export const waypointAmount = () =>{
+  return(
+    <div>{waypointCounter}</div>
+  )
+}
 
 const getFilterPredicate = (state: Types.State): Types.FilterPredicate => {
   const searchBarToggled =

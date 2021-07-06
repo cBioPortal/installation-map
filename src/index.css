@@ -55,6 +55,22 @@ body {
   box-sizing: border-box;
   text-align: center;
 }
+.sidebar h2 {
+  font-size: 12px;
+  color: var(--default-marker-color);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 0.67em 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.sidebar .tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .mapchart {
   background: #fff;
@@ -89,7 +105,7 @@ body {
   cursor: default;
 }
 
-.controls>button:first-child {
+.controls > button:first-child {
   margin-right: 0.25rem;
 }
 
@@ -129,13 +145,13 @@ body {
   justify-content: center;
 }
 
-.filter-options>form {
+.filter-options > form {
   display: flex;
   margin-right: 5px;
   justify-content: center;
 }
 
-.filter-options>form:last-child {
+.filter-options > form:last-child {
   margin-right: 0;
 }
 
