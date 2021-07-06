@@ -3,8 +3,7 @@ import * as Config from "../utils/Config";
 import * as Renderers from "../utils/Renderers";
 import * as Types from "../utils/Types";
 import FilterOptions from "./FilterOptions";
-import * as rowCount from "./RowMarker";
-import * as Orphans from "./OrphanTableRows"
+
 
 const SideBar = (props: Types.SideBarProps): JSX.Element => {
   const [state] = props.stateManager;
