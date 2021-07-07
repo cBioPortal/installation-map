@@ -373,11 +373,7 @@ export const tableRowCounterTwo = () =>{
   )
 }
 
-export const waypointAmount = () =>{
-  return(
-    <div>{waypointCounter}</div>
-  )
-}
+
 
 const getFilterPredicate = (state: Types.State): Types.FilterPredicate => {
   const searchBarToggled =

@@ -47,7 +47,7 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
       </div>
       <div id="waypoint-details">
         <h1>Selected Instance Details</h1>
-        <h2>Amount of Waypoints: <Renderers.waypointAmount /></h2>
+        
 
         <div className="tableFixHead">{detailsContent}</div>
       </div>
