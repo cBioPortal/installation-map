@@ -354,7 +354,7 @@ export const createWaypointsTableBody = (
   const [state] = stateManager;
   const originalRows = state.allCombinedRows;
   rowCounter = state.rows.length - 2;
-  waypointCounter = originalRows.length;
+  waypointCounter = state.allCombinedRows.length;
   const filterPredicate = getFilterPredicate(state);
   return (
     <tbody>

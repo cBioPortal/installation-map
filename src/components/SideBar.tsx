@@ -31,10 +31,10 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
         </p>
       </div>
       <div id="waypoints">
-     <div id = "tableHeader"> 
-      <h1> cBioPortal Instances: <Renderers.tableRowCounterTwo /> </h1>
-    </div>        
-<FilterOptions stateManager={props.stateManager} />
+      <div id = "tableHeader"> 
+        <h1> cBioPortal Instances: <Renderers.tableRowCounterTwo /> </h1>
+      </div>        
+      <FilterOptions stateManager={props.stateManager} />
         <div className="tableFixHead">
           <table>
             {Renderers.createWaypointsTableHead(Config.tableHeaderKeys)}

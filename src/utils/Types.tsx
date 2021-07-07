@@ -124,9 +124,7 @@ export interface RowMarkerProps {
   isVisible: boolean;
 }
 
-export interface rowCounterProp {
-  givenCombinedRow: CombinedRow;
-}
+
 
 export interface PlaceIconProps {
   transform: string;
