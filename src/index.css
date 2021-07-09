@@ -52,6 +52,7 @@ body {
   font-weight: 500;
   line-height: 1.1;
   margin: 0 0 0.67em 0;
+  margin-right: 0.5em;
   box-sizing: border-box;
   text-align: center;
 }
@@ -196,6 +197,20 @@ body {
 .search input[type="button"]:hover {
   background: #ccc;
   border: 1px solid #ccc;
+}
+
+#sideTableHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--default-marker-color);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 0.67em 0;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 #description,

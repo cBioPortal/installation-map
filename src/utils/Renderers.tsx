@@ -9,7 +9,7 @@ import * as Types from "./Types";
 /////////////////
 // MapChart.tsx
 /////////////////
-var rowCounter = 0;
+var totalRowCount = 0;
 
 export const handleDimensions = (inFullMode: boolean): Types.Dimensions => {
   return inFullMode ? Config.fullModeDimensions : Config.smallModeDimensions;
@@ -352,7 +352,7 @@ export const createWaypointsTableBody = (
 ): JSX.Element => {
   const [state] = stateManager;
   const originalRows = state.allCombinedRows;
-  rowCounter = state.rows.length - 2;
+ 
  
   const filterPredicate = getFilterPredicate(state);
   return (
@@ -366,9 +366,20 @@ export const createWaypointsTableBody = (
 
 
 
-export const tableRowCounterTwo = () =>{
+export const tableRowCounterTwo = (
+  stateManager: Types.StateManager,
+): JSX.Element =>{
+  const[state] = stateManager;
+  const originalRows = state.allCombinedRows;
+  const filterPredicate = getFilterPredicate(state);
+  const rowCounterFiltered = originalRows.filter(filterPredicate);
+  const rowcounts = rowCounterFiltered.length;
+  totalRowCount = 0;
+  for(var j = 0; j < rowcounts; j++){
+    totalRowCount += rowCounterFiltered[j].rows.length;
+  }
   return(
-    <div>{rowCounter}</div>
+    <div>{totalRowCount}</div>
   )
 }
 
