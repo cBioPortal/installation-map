@@ -117,7 +117,7 @@ export const componentIds: Types.componentToIdentifier = {
 export const fullModeDimensions = {
   width: 800,
   height: 550,
-  scale: 200,
+  scale: 180,
 };
 
 export const smallModeDimensions = {

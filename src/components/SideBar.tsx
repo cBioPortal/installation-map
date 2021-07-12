@@ -4,6 +4,7 @@ import * as Renderers from "../utils/Renderers";
 import * as Types from "../utils/Types";
 import FilterOptions from "./FilterOptions";
 
+
 const SideBar = (props: Types.SideBarProps): JSX.Element => {
   const [state] = props.stateManager;
   const detailsContent =
@@ -30,8 +31,13 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
         </p>
       </div>
       <div id="waypoints">
-        <h1>cBioPortal Instances</h1>
-        <FilterOptions stateManager={props.stateManager} />
+      <div id = "sideTableHeader"> 
+        <h1> cBioPortal Instances:  </h1>
+        {Renderers.tableRowCounterTwo(props.stateManager) }
+        <div>/</div>
+        {Renderers.tableRowCounter(props.stateManager)}
+      </div>        
+      <FilterOptions stateManager={props.stateManager} />
         <div className="tableFixHead">
           <table>
             {Renderers.createWaypointsTableHead(Config.tableHeaderKeys)}
@@ -44,6 +50,8 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
       </div>
       <div id="waypoint-details">
         <h1>Selected Instance Details</h1>
+        
+
         <div className="tableFixHead">{detailsContent}</div>
       </div>
     </div>

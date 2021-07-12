@@ -4,6 +4,7 @@ import * as Renderers from "../utils/Renderers";
 import * as StateUpdaters from "../utils/StateUpdaters";
 import * as Types from "./../utils/Types";
 
+
 const OrphanTableRows = (props: Types.OrphanTableRowsProps): JSX.Element => {
   const [state, dispatch] = props.stateManager;
   const givenRow = props.givenCombinedRow;
@@ -13,6 +14,7 @@ const OrphanTableRows = (props: Types.OrphanTableRowsProps): JSX.Element => {
   const renderRow = (row: Types.Row): JSX.Element => {
     const markerIdentifier = StateUpdaters.getMarkerIdentifier(givenRow.index);
     const currentRows = state.currentCombinedRows;
+    
     const highlightValidRow = Renderers.getHighlightClass(
       givenRow,
       currentRows
@@ -45,4 +47,8 @@ const OrphanTableRows = (props: Types.OrphanTableRowsProps): JSX.Element => {
   );
 };
 
+
+
 export default OrphanTableRows;
+
+
