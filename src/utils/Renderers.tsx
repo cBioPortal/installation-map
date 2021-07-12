@@ -10,6 +10,7 @@ import * as Types from "./Types";
 // MapChart.tsx
 /////////////////
 var totalRowCount = 0;
+var rowCount = 0;
 
 export const handleDimensions = (inFullMode: boolean): Types.Dimensions => {
   return inFullMode ? Config.fullModeDimensions : Config.smallModeDimensions;
@@ -363,6 +364,18 @@ export const createWaypointsTableBody = (
     </tbody>
   );
 };
+
+
+export const tableRowCounter = (
+  stateManager: Types.StateManager,
+): JSX.Element =>{
+  const[state] = stateManager;
+  rowCount = state.rows.length;
+  return(
+    <div>{rowCount}</div>
+  )
+  
+}
 
 
 
