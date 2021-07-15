@@ -7,8 +7,6 @@ import * as Renderers from "../utils/Renderers";
 import * as StateUpdaters from "../utils/StateUpdaters";
 import * as Types from "../utils/Types";
 
-
-
 const RowMarker = (props: Types.RowMarkerProps): JSX.Element => {
   const [state, dispatch] = props.stateManager;
   const currentZoom = state.mousePosition.zoom;
@@ -21,10 +19,6 @@ const RowMarker = (props: Types.RowMarkerProps): JSX.Element => {
   const markerHighlight = highlightValidRow(true);
   const getVisibleClass = props.isVisible ? "" : "invisible";
   const numberOfRows = givenRow.rows.length;
-  
-  
-
-
   return (
     <Marker
       onClick={EventHandlers.handleMarkerOnClick(
@@ -46,8 +40,5 @@ const RowMarker = (props: Types.RowMarkerProps): JSX.Element => {
     </Marker>
   );
 };
-
-
-
 
 export default RowMarker;

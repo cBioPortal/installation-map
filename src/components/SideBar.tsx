@@ -4,7 +4,6 @@ import * as Renderers from "../utils/Renderers";
 import * as Types from "../utils/Types";
 import FilterOptions from "./FilterOptions";
 
-
 const SideBar = (props: Types.SideBarProps): JSX.Element => {
   const [state] = props.stateManager;
   const detailsContent =
@@ -34,7 +33,6 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
       <div id = "sideTableHeader"> 
         <h1> cBioPortal Instances:  </h1>
         {Renderers.createVisibleRowCount(props.stateManager) }
-        
       </div>        
       <FilterOptions stateManager={props.stateManager} />
         <div className="tableFixHead">
