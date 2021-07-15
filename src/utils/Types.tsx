@@ -124,8 +124,6 @@ export interface RowMarkerProps {
   isVisible: boolean;
 }
 
-
-
 export interface PlaceIconProps {
   transform: string;
   markerHighlight: string;
