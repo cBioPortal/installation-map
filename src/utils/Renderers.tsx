@@ -379,7 +379,7 @@ export const createVisibleRowCount = (
   for(var j = 0; j < rowcounts; j++){
     currentInstancesCounter += rowCounterFiltered[j].rows.length;
   }
- if (currentInstancesCounter != totalInstanceCounter){
+ if (currentInstancesCounter !== totalInstanceCounter){
    return (
      <div style = {{display: "flex", flexDirection: "row", justifyContent: "center"}}>
        <div>{currentInstancesCounter}</div>
