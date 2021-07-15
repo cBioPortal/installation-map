@@ -14,7 +14,6 @@ const OrphanTableRows = (props: Types.OrphanTableRowsProps): JSX.Element => {
   const renderRow = (row: Types.Row): JSX.Element => {
     const markerIdentifier = StateUpdaters.getMarkerIdentifier(givenRow.index);
     const currentRows = state.currentCombinedRows;
-    
     const highlightValidRow = Renderers.getHighlightClass(
       givenRow,
       currentRows
@@ -46,8 +45,6 @@ const OrphanTableRows = (props: Types.OrphanTableRowsProps): JSX.Element => {
     </React.Fragment>
   );
 };
-
-
 
 export default OrphanTableRows;
 

@@ -9,8 +9,8 @@ import * as Types from "./Types";
 /////////////////
 // MapChart.tsx
 /////////////////
-var totalRowCount = 0;
-var rowCount = 0;
+let currentInstancesCounter = 0;
+let totalInstanceCounter = 0;
 
 export const handleDimensions = (inFullMode: boolean): Types.Dimensions => {
   return inFullMode ? Config.fullModeDimensions : Config.smallModeDimensions;
@@ -365,21 +365,7 @@ export const createWaypointsTableBody = (
   );
 };
 
-
-export const tableRowCounter = (
-  stateManager: Types.StateManager,
-): JSX.Element =>{
-  const[state] = stateManager;
-  rowCount = state.rows.length;
-  return(
-    <div>{rowCount}</div>
-  )
-  
-}
-
-
-
-export const tableRowCounterTwo = (
+export const createVisibleRowCount = (
   stateManager: Types.StateManager,
 ): JSX.Element =>{
   const[state] = stateManager;
@@ -387,14 +373,27 @@ export const tableRowCounterTwo = (
   const filterPredicate = getFilterPredicate(state);
   const rowCounterFiltered = originalRows.filter(filterPredicate);
   const rowcounts = rowCounterFiltered.length;
-  totalRowCount = 0;
+  totalInstanceCounter = state.rows.length;
+  currentInstancesCounter = 0;
+  
   for(var j = 0; j < rowcounts; j++){
-    totalRowCount += rowCounterFiltered[j].rows.length;
+    currentInstancesCounter += rowCounterFiltered[j].rows.length;
   }
-  return(
-    <div>{totalRowCount}</div>
-  )
-}
+ if (currentInstancesCounter != totalInstanceCounter){
+   return (
+     <div style = {{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+       <div>{currentInstancesCounter}</div>
+       <div>/</div>
+       <div>{totalInstanceCounter}</div>
+     </div>
+   )
+ }
+ else{
+   return(
+     <div>{currentInstancesCounter}</div>
+   )
+ }
+};
 
 
 

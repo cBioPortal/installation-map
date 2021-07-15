@@ -33,9 +33,8 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
       <div id="waypoints">
       <div id = "sideTableHeader"> 
         <h1> cBioPortal Instances:  </h1>
-        {Renderers.tableRowCounterTwo(props.stateManager) }
-        <div>/</div>
-        {Renderers.tableRowCounter(props.stateManager)}
+        {Renderers.createVisibleRowCount(props.stateManager) }
+        
       </div>        
       <FilterOptions stateManager={props.stateManager} />
         <div className="tableFixHead">
@@ -50,8 +49,6 @@ const SideBar = (props: Types.SideBarProps): JSX.Element => {
       </div>
       <div id="waypoint-details">
         <h1>Selected Instance Details</h1>
-        
-
         <div className="tableFixHead">{detailsContent}</div>
       </div>
     </div>
