@@ -9,8 +9,7 @@ import * as Types from "./Types";
 /////////////////
 // MapChart.tsx
 /////////////////
-let currentInstancesCounter = 0;
-let totalInstanceCounter = 0;
+
 
 export const handleDimensions = (inFullMode: boolean): Types.Dimensions => {
   return inFullMode ? Config.fullModeDimensions : Config.smallModeDimensions;
@@ -353,8 +352,6 @@ export const createWaypointsTableBody = (
 ): JSX.Element => {
   const [state] = stateManager;
   const originalRows = state.allCombinedRows;
- 
- 
   const filterPredicate = getFilterPredicate(state);
   return (
     <tbody>
@@ -369,14 +366,13 @@ export const createVisibleRowCount = (
   stateManager: Types.StateManager,
 ): JSX.Element =>{
   const[state] = stateManager;
+  let totalInstanceCounter = state.rows.length;
   const originalRows = state.allCombinedRows;
   const filterPredicate = getFilterPredicate(state);
   const rowCounterFiltered = originalRows.filter(filterPredicate);
-  const rowcounts = rowCounterFiltered.length;
-  totalInstanceCounter = state.rows.length;
-  currentInstancesCounter = 0;
-  
-  for(var j = 0; j < rowcounts; j++){
+  const rowcounts = rowCounterFiltered.length; 
+  let currentInstancesCounter = 0;
+  for(let j = 0; j < rowcounts; j++){
     currentInstancesCounter += rowCounterFiltered[j].rows.length;
   }
  if (currentInstancesCounter !== totalInstanceCounter){
@@ -394,8 +390,6 @@ export const createVisibleRowCount = (
    )
  }
 };
-
-
 
 const getFilterPredicate = (state: Types.State): Types.FilterPredicate => {
   const searchBarToggled =
