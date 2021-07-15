@@ -19,6 +19,7 @@ const RowMarker = (props: Types.RowMarkerProps): JSX.Element => {
   const markerHighlight = highlightValidRow(true);
   const getVisibleClass = props.isVisible ? "" : "invisible";
   const numberOfRows = givenRow.rows.length;
+  
   return (
     <Marker
       onClick={EventHandlers.handleMarkerOnClick(

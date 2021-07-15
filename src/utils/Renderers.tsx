@@ -10,7 +10,6 @@ import * as Types from "./Types";
 // MapChart.tsx
 /////////////////
 
-
 export const handleDimensions = (inFullMode: boolean): Types.Dimensions => {
   return inFullMode ? Config.fullModeDimensions : Config.smallModeDimensions;
 };
