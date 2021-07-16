@@ -361,6 +361,35 @@ export const createWaypointsTableBody = (
   );
 };
 
+export const createVisibleRowCount = (
+  stateManager: Types.StateManager,
+): JSX.Element =>{
+  const[state] = stateManager;
+  let totalInstanceCounter = state.rows.length;
+  const originalRows = state.allCombinedRows;
+  const filterPredicate = getFilterPredicate(state);
+  const rowCounterFiltered = originalRows.filter(filterPredicate);
+  const rowcounts = rowCounterFiltered.length; 
+  let currentInstancesCounter = 0;
+  for(let j = 0; j < rowcounts; j++){
+    currentInstancesCounter += rowCounterFiltered[j].rows.length;
+  }
+ if (currentInstancesCounter !== totalInstanceCounter){
+   return (
+     <div style = {{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+       <div>{currentInstancesCounter}</div>
+       <div>/</div>
+       <div>{totalInstanceCounter}</div>
+     </div>
+   )
+ }
+ else{
+   return(
+     <div>{currentInstancesCounter}</div>
+   )
+ }
+};
+
 const getFilterPredicate = (state: Types.State): Types.FilterPredicate => {
   const searchBarToggled =
     state.searchBarContent !== Config.defaultSearchBarContent;
