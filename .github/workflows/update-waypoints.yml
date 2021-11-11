@@ -1,9 +1,9 @@
 name: Update-Waypoints
 
-# Run this workflow every 5 minutes
+# Run this workflow every hour
 on:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 * * * *"
 
 jobs:
   create-json:
