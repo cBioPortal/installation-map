@@ -3,7 +3,7 @@ name: Update-Waypoints
 # Run this workflow every hour
 on:
   schedule:
-    - cron: "15 10 * * *"
+    - cron: "0 9 * * *"
 
 jobs:
   create-json:
@@ -18,8 +18,9 @@ jobs:
       - name: Prepare environment
         run: |
           sudo apt-get --yes update
-          sudo apt-get --yes install python3-pip python3-setuptools
+          sudo apt-get --yes install python3-pip
           sudo pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+          sudo pip3 install -U pip setuptools
           sudo pip3 install -U googlemaps
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
