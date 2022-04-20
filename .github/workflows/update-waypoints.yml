@@ -18,7 +18,7 @@ jobs:
       - name: Prepare environment
         run: |
           sudo apt-get --yes update
-          sudo apt-get --yes install python3-pip
+          sudo apt-get --yes install python3-pip python3-setuptools
           sudo pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
           sudo pip3 install -U googlemaps
       # Checks out a copy of your repository on the ubuntu-latest machine
