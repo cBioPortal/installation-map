@@ -8,7 +8,7 @@ on:
 jobs:
   create-json:
     name: Creates or updates waypoints.json
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     env:
       DEFAULT_BRANCH: master
     defaults:
