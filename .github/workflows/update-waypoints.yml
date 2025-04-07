@@ -22,7 +22,7 @@ jobs:
           sudo apt-get --yes install python3-pip
           sudo pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
           sudo pip3 install -U pip setuptools
-          sudo pip3 install -U googlemaps
+          sudo pip3 install --use-pep517 googlemaps
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v2
