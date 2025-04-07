@@ -13,6 +13,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # The ID and range of a spreadsheet.
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
+SHEET_NAME = 'Form Responses 1'
 RANGES = ["A:A", "D:D", "F:F", "I:I", "K:K"]
 
 # Geocoding API
@@ -34,31 +35,20 @@ def spreadsheet_to_pandas(creds):
     # Fetch values
     service = build("sheets", "v4", credentials=creds)
     sheet = service.spreadsheets()
-    result = sheet.values().batchGet(spreadsheetId=SPREADSHEET_ID, ranges=RANGES).execute()
-    value_ranges = result.get("valueRanges", [])
-
-    # Parse columns
-    columns = []
-    max_rows = 0
-
-    for vr in value_ranges:
-        col_values = [row[0] for row in vr.get("values", [])]
-        columns.append(col_values)
-        max_rows = max(max_rows, len(col_values))
-
-    # Pad columns if different length
-    for i in range(len(columns)):
-        if len(columns[i]) < max_rows:
-            columns[i] += [""] * (max_rows - len(columns[i]))
+    result = (
+        service.spreadsheets()
+        .values()
+        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_NAME)
+        .execute()
+    )
+    values = result.get("values", [])
 
     # Create dataframe
-    df = pd.DataFrame({
-        "Approved": columns[0],
-        "Your Name": columns[1],
-        "Institution or Company Name": columns[2],
-        "City": columns[3],
-        "Country": col_values[4]
-    })
+    if not values:
+        print("WARN: No data found.")
+        df = pd.DataFrame()
+    else:
+        df = pd.DataFrame(values[1:], columns=values[0])
 
     return df
 
