@@ -16,7 +16,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 # The ID and range of a spreadsheet.
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 RANGE = "A:T"
-FILTER_BY_COL_IDX = [0,5,8,9,10,19]
+FILTER_BY_COL = ['Approved', 'Institution or Company Name', 'Contact Name / Group or Lab', 'City', 'State', 'Country', 'Web Link?']
 
 # Geocoding API
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
@@ -81,9 +81,8 @@ def main():
     print("Geocoding waypoints...")
     geocode_waypoints = []
     for index, row in df_approved.iterrows():
-        curr_waypoint = [row.iloc[col] for col in FILTER_BY_COL_IDX]
+        curr_waypoint = [row[col] for col in FILTER_BY_COL]
         curr_geocode = get_raw_geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4])
-        
         address, lng, lat = parse_geocode(curr_geocode)
         print(curr_geocode)
         print(address, lng, lat)
