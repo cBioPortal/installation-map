@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import googlemaps
 import pandas as pd
-from enum import Enum
+import json
 
 # Google Sheets API
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
@@ -74,20 +74,35 @@ def parse_geocode(raw_geocode):
     lng, lat = location["lng"], location["lat"]
     return formatted_address, lng, lat
 
+# Save given list of json objects to a json file
+def save_json(data, dest):
+    with open(dest, "w") as f:
+        json.dump(data, f, indent=2)
+
 def main():
     creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
     df = spreadsheet_to_pandas(creds).fillna("")
     df_approved = df[df[df.columns[0]].str.strip().str.lower() == "yes"]
     
     print("Geocoding waypoints...")
-    geocode_waypoints = []
+    geocoded_waypoints = []
     for index, row in df_approved.iterrows():
         curr_waypoint = [row[col] for col in FILTER_BY_COL]
         curr_geocode = get_raw_geocode(curr_waypoint[3], curr_waypoint[4], curr_waypoint[5])
         address, lng, lat = parse_geocode(curr_geocode)
-        print(curr_geocode)
-        print(address, lng, lat)
-        return
+
+        geocoded_waypoints.append({
+            "institution": curr_waypoint[1],
+            "group": curr_waypoint[2],
+            "address": address,
+            "lng": lng,
+            "lat": lat
+        })
+        break
+
+    print(geocoded_waypoints)
+
+    save_json(geocoded_waypoints, "temp-waypoints.json")
 
 if __name__ == "__main__":
   main()
