@@ -46,9 +46,15 @@ def spreadsheet_to_pandas(creds):
         print("WARN: No data found.")
         return
 
+    print(type(values))
+    print(type(values[0]))
+
+    df = pd.DataFrame(values[1:], columns=values[0])
+    print(df.head())
+
     print("Approved:")
     for row in values:
-        print(f"{row[0]}")    
+        print(f"{row[0]}")
 
 def main():
     creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
