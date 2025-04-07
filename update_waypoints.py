@@ -53,8 +53,8 @@ def spreadsheet_to_pandas(creds):
 
     return df
 
-# Geocode given city, state, and country
-def geocode(city, state, country):
+# Get raw geocode given city, state, and country
+def get_raw_geocode(city, state, country):
     gmaps = googlemaps.Client(key=GEOCODING_API_KEY)
     geocode_result = gmaps.geocode("%s %s %s" % (city, state, country))
     if not geocode_result:
@@ -66,6 +66,13 @@ def geocode(city, state, country):
     
     return geocode_result
 
+# Parse geocode and return address, longitude, latitude
+def parse_geocode(raw_geocode):
+    formatted_address = raw_geocode[0]["formatted_address"]
+    location = raw_geocode[0]["geometry"]["location"]
+    lng, lat = location["lng"], location["lat"]
+    return formatted_address, lng, lat
+
 def main():
     creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
     df = spreadsheet_to_pandas(creds).fillna("")
@@ -75,7 +82,12 @@ def main():
     geocode_waypoints = []
     for index, row in df_approved.iterrows():
         curr_waypoint = [row.iloc[col] for col in FILTER_BY_COL_IDX]
-        print(geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4]))
+        curr_geocode = geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4])
+        
+        address, lng, lat = parse_geocode(curr_geocode)
+        print(curr_geocode)
+        print(address, lng, lat)
+        return
 
 if __name__ == "__main__":
   main()
