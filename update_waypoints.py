@@ -16,7 +16,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 # The ID and range of a spreadsheet.
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
 RANGE = "A:T"
-FILTER_BY_COL = ['Approved', 'Institution or Company Name', 'Contact Name / Group or Lab', 'City', 'State', 'Country', 'Web Link?']
+FILTER_BY_COL = ['approved', 'institution or company name', 'contact name / group or lab', 'city', 'state / province', 'country', 'web link?']
 
 # Geocoding API
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
@@ -50,6 +50,7 @@ def spreadsheet_to_pandas(creds):
 
     # Convert to pandas dataframe
     df = pd.DataFrame(values[1:], columns=values[0], dtype=str).fillna("")
+    df.columns = df.columns.str.lower().str.strip()
 
     return df
 
@@ -82,7 +83,7 @@ def main():
     geocode_waypoints = []
     for index, row in df_approved.iterrows():
         curr_waypoint = [row[col] for col in FILTER_BY_COL]
-        curr_geocode = get_raw_geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4])
+        curr_geocode = get_raw_geocode(curr_waypoint[3], curr_waypoint[4], curr_waypoint[5])
         address, lng, lat = parse_geocode(curr_geocode)
         print(curr_geocode)
         print(address, lng, lat)
