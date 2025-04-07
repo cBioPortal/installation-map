@@ -75,7 +75,7 @@ def main():
     geocode_waypoints = []
     for index, row in df_approved.iterrows():
         curr_waypoint = [row.iloc[col] for col in FILTER_BY_COL_IDX]
-        print(geocode(curr_waypoint[8], curr_waypoint[9], curr_waypoint[10]))
+        print(geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4]))
 
 if __name__ == "__main__":
   main()
