@@ -82,7 +82,7 @@ def main():
     geocode_waypoints = []
     for index, row in df_approved.iterrows():
         curr_waypoint = [row.iloc[col] for col in FILTER_BY_COL_IDX]
-        curr_geocode = geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4])
+        curr_geocode = get_raw_geocode(curr_waypoint[2], curr_waypoint[3], curr_waypoint[4])
         
         address, lng, lat = parse_geocode(curr_geocode)
         print(curr_geocode)
