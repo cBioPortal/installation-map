@@ -13,7 +13,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # The ID and range of a spreadsheet.
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
-COLS = "A:A F:M"
+RANGES = ["A:A", "D:D", "F:F", "I:I", "K:K"]
 
 # Geocoding API
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
@@ -25,31 +25,48 @@ GOOGLE_SERVICE_ACCOUNT = "credentials.json"
 SRC_DIR = "./src"
 WAYPOINTS = "%s/waypoints.json" % SRC_DIR
 
+# Get credentials from service account
+def get_creds():
+    return service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
 
-def main():
-  """Shows basic usage of the Sheets API.
-  Prints values from a sample spreadsheet.
-  """
-  creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
-
-  try:
+# Read spreadsheet and return a pandas dataframe
+def spreadsheet_to_pandas(creds):
+    # Fetch values
     service = build("sheets", "v4", credentials=creds)
-
-    # Call the Sheets API
     sheet = service.spreadsheets()
-
-    result = sheet.values().batchGet(
-        spreadsheetId=SPREADSHEET_ID,
-        ranges=["A:A", "F:M"]
-    ).execute()
-
+    result = sheet.values().batchGet(spreadsheetId=SPREADSHEET_ID, ranges=RANGES).execute()
     value_ranges = result.get("valueRanges", [])
 
+    # Parse columns
+    columns = []
+    max_rows = 0
+
     for vr in value_ranges:
-        print(f"Range {vr['range']}:")
-        print(vr.get("values", []))
-  except HttpError as err:
-    print(err)
+        col_values = [row[0] for row in vr.get("values", [])]
+        columns.append(col_values)
+        max_rows = max(max_rows, len(col_values))
+
+    # Pad columns if different length
+    for i in range(len(columns)):
+        if len(columns[i]) < max_rows:
+            columns[i] += [""] * (max_rows - len(columns[i]))
+
+    # Create dataframe
+    df = pd.DataFrame({
+        "Approved": columns[0],
+        "Your Name": columns[1],
+        "Institution or Company Name": columns[2],
+        "City": columns[3],
+        "Country": col_values[4]
+    })
+
+    return df
+
+def main():
+    creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
+    df = spreadsheet_to_pandas(creds)
+
+    print(df.head())
 
 
 if __name__ == "__main__":
