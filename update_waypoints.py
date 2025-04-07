@@ -112,9 +112,9 @@ def main():
     save_json(geocoded_waypoints, "temp-waypoints.json")
 
     print(f"Total waypoints: {df.shape[0]}")
-    print(f"Approved waypoints: {df_yes.shape[0]}")
-    print(f"Waypoints succesfully geocoded: {len(geocoded_waypoints)}")
-    print(f"WARNING: The following {len(failed_waypoints)} waypoints failed to geocode. Fix their location and rerun action.")
+    print(f"Approved waypoints: {df_approved.shape[0]}")
+    print(f"Waypoints succesfully geocoded: {len(geocoded_waypoints)}/{df_approved.shape[0]}")
+    print(f"WARNING: The following waypoints failed to geocode. Fix their location and rerun action.")
     print(json.dumps(failed_waypoints, indent=2))
 
 if __name__ == "__main__":
