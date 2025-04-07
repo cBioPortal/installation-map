@@ -37,20 +37,13 @@ def main():
 
     # Call the Sheets API
     sheet = service.spreadsheets()
-    result = (
-        sheet.values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=COLS)
-        .execute()
-    )
-    values = result.get("values", [])
 
-    if not values:
-      print("No data found.")
-      return
+    result = sheet.values().batchGet(
+        spreadsheetId=SPREADSHEET_ID,
+        ranges=["A:A", "F:M"]
+    ).execute()
 
-    for row in values:
-      # Print columns A and E, which correspond to indices 0 and 4.
-      print(f"{row[0]}, {row[4]}")
+    value_ranges = result.get("valueRanges", [])
   except HttpError as err:
     print(err)
 
