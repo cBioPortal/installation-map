@@ -98,8 +98,8 @@ def main():
                 "institution": curr_waypoint[1],
                 "group": curr_waypoint[2],
                 "address": address,
-                "lng": lng.str(),
-                "lat": lat.str()
+                "lng": lng,
+                "lat": lat
             })
         else:
             failed_waypoints.append({
