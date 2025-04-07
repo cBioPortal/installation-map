@@ -19,7 +19,7 @@ COLS = "A:A F:M"
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
 
 # Google Service Account
-GOOGLE_SERVICE_ACCOUNT = os.getenv("GOOGLE_SERVICE_ACCOUNT")
+GOOGLE_SERVICE_ACCOUNT = "credentials.json"
 
 # Specified directory and file
 SRC_DIR = "./src"
@@ -30,7 +30,7 @@ def main():
   """Shows basic usage of the Sheets API.
   Prints values from a sample spreadsheet.
   """
-  creds = service_account.Credentials.from_service_account_info(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
+  creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
 
   try:
     service = build("sheets", "v4", credentials=creds)
