@@ -44,6 +44,10 @@ def main():
     ).execute()
 
     value_ranges = result.get("valueRanges", [])
+
+    for vr in value_ranges:
+        print(f"Range {vr['range']}:")
+        print(vr.get("values", []))
   except HttpError as err:
     print(err)
 
