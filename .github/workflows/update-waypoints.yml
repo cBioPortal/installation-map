@@ -40,6 +40,8 @@ jobs:
       - name: Test step
         run: |
           cat temp-waypoints.json
+          git status
+          git diff
       # - name: Check for changes
       #   run: |
       #     if git diff --exit-code; then

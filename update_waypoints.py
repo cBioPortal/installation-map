@@ -86,23 +86,36 @@ def main():
     
     print("Geocoding waypoints...")
     geocoded_waypoints = []
+    failed_waypoints = []
     for index, row in df_approved.iterrows():
         curr_waypoint = [row[col] for col in FILTER_BY_COL]
         curr_geocode = get_raw_geocode(curr_waypoint[3], curr_waypoint[4], curr_waypoint[5])
-        address, lng, lat = parse_geocode(curr_geocode)
 
-        geocoded_waypoints.append({
-            "institution": curr_waypoint[1],
-            "group": curr_waypoint[2],
-            "address": address,
-            "lng": lng,
-            "lat": lat
-        })
+        if curr_geocode:
+            address, lng, lat = parse_geocode(curr_geocode)
+
+            geocoded_waypoints.append({
+                "institution": curr_waypoint[1],
+                "group": curr_waypoint[2],
+                "address": address,
+                "lng": lng.str(),
+                "lat": lat.str()
+            })
+        else:
+            failed_waypoints.append({
+                "row_number": index,
+                "institution": curr_waypoint[1],
+                "group": curr_waypoint[2]
+            })
         break
 
-    print(geocoded_waypoints)
-
     save_json(geocoded_waypoints, "temp-waypoints.json")
+
+    print(f"Total waypoints: {df.shape[0]}")
+    print(f"Approved waypoints: {df_yes.shape[0]}")
+    print(f"Waypoints succesfully geocoded: {len(geocoded_waypoints)}")
+    print(f"WARNING: The following {len(failed_waypoints)} waypoints failed to geocode. Fix their location and rerun action.")
+    print(json.dumps(failed_waypoints, indent=2))
 
 if __name__ == "__main__":
   main()
