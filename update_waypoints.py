@@ -73,7 +73,7 @@ def main():
     
     print("Geocoding waypoints...")
     geocode_waypoints = []
-    for index, row in df_yes.iterrows():
+    for index, row in df_approved.iterrows():
         curr_waypoint = [row.iloc[col] for col in FILTER_BY_COL_IDX]
         print(geocode(curr_waypoint[8], curr_waypoint[9], curr_waypoint[10]))
 
