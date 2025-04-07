@@ -14,8 +14,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # The ID and range of a spreadsheet.
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
-SHEET_NAME = 'Form Responses 1'
-RANGES = ["A:A", "D:D", "F:F", "I:I", "K:K"]
+RANGE = "A:K"
 
 # Geocoding API
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
@@ -37,28 +36,23 @@ def spreadsheet_to_pandas(creds):
     service = build("sheets", "v4", credentials=creds)
     sheet = service.spreadsheets()
     result = (
-        service.spreadsheets()
-        .values()
-        .get(spreadsheetId=SPREADSHEET_ID, range=SHEET_NAME)
+        sheet.values()
+        .get(spreadsheetId=SPREADSHEET_ID, range=RANGE)
         .execute()
     )
     values = result.get("values", [])
 
-    # Create dataframe
     if not values:
         print("WARN: No data found.")
-        df = pd.DataFrame()
-    else:
-        df = pd.DataFrame(values[1:], columns=values[0])
+        return
 
-    return df
+    print("Approved:")
+    for row in values:
+        print(f"{row[0]}")    
 
 def main():
     creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
-    df = spreadsheet_to_pandas(creds)
-
-    print(df.head())
-
+    spreadsheet_to_pandas(creds)
 
 if __name__ == "__main__":
   main()
