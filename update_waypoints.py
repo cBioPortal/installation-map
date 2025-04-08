@@ -24,9 +24,8 @@ GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
 # Google Service Account
 GOOGLE_SERVICE_ACCOUNT = "credentials.json"
 
-# Specified directory and file
-SRC_DIR = "./src"
-WAYPOINTS = "%s/waypoints.json" % SRC_DIR
+# Waypoints destination
+WAYPOINTS_DEST = os.getenv("WAYPOINTS_DEST")
 
 # Get credentials from service account
 def get_creds():
@@ -107,9 +106,8 @@ def main():
                 "institution": curr_waypoint[1],
                 "group": curr_waypoint[2]
             })
-        break
 
-    save_json(geocoded_waypoints, "temp-waypoints.json")
+    save_json(geocoded_waypoints, WAYPOINTS_DEST)
 
     print(f"Total waypoints: {df.shape[0]}")
     print(f"Approved waypoints: {df_approved.shape[0]}")

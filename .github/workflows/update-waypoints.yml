@@ -11,7 +11,7 @@ jobs:
     name: Creates or updates waypoints.json
     runs-on: ubuntu-22.04
     env:
-      DEFAULT_BRANCH: master
+      WAYPOINTS_DEST: "public/auto_generated_waypoint.json"
     defaults:
       run:
         shell: bash
@@ -24,7 +24,6 @@ jobs:
           sudo pip3 install -U pip setuptools
           sudo pip3 install --use-pep517 googlemaps
           sudo pip3 install pandas
-      # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Set environment variables and update waypoints.json
@@ -37,9 +36,9 @@ jobs:
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
           GOOGLE_GEOCODING_API_KEY: ${{ secrets.GOOGLE_GEOCODING_API_KEY }}
           GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-      - name: Test step
+      - name: Check for changes
         run: |
-          cat temp-waypoints.json
+          cat $WAYPOINTS_DEST
           git status
           git diff
       # - name: Check for changes
