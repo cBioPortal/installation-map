@@ -94,7 +94,7 @@ def main():
             address, lng, lat = parse_geocode(curr_geocode)
 
             geocoded_waypoints.append({
-                "index": index,
+                "id": index,
                 "institution": curr_waypoint[1],
                 "group": curr_waypoint[2],
                 "address": address,
