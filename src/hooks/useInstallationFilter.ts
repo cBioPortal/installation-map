@@ -15,9 +15,9 @@ export function useInstanceFilter(
       const allInstances = window.allInstances || instances;
       
       const filtered = allInstances.filter(instance => 
-        instance.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        instance.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        instance.location.toLowerCase().includes(searchTerm.toLowerCase())
+        instance.institution.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        instance.group.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        instance.address.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredInstances(filtered);
     }

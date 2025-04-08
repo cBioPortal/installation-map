@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Instance } from "@/types/instance";
-import { Globe } from "lucide-react";
+import {MapPin} from "lucide-react";
 
 interface InstallationItemProps {
   installation: Instance;
@@ -31,7 +31,7 @@ const InstallationItem = React.forwardRef<HTMLLIElement, Omit<InstallationItemPr
         <div className="font-medium text-gray-800">{installation.institution}</div>
         <div className="text-sm text-cbioportal-blue mt-1">{installation.group}</div>
         <div className="text-xs text-gray-500 mt-0.5 flex items-center">
-          <Globe className="h-3 w-3 mr-1 inline-block text-gray-400" />
+          <MapPin className="h-3 w-3 mr-1 inline-block text-gray-400" />
           {installation.address}
         </div>
         {isSelected && (
