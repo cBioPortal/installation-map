@@ -1,0 +1,674 @@
+[
+  {
+    "institution": "NCI-Frederick",
+    "group": "MoCha",
+    "address": "Frederick, MD, USA",
+    "lng": -77.4105409,
+    "lat": 39.41426879999999
+  },
+  {
+    "institution": "Broad Institute ",
+    "group": "Hahn Lab",
+    "address": "Cambridge, MA, USA",
+    "lng": -71.1056916,
+    "lat": 42.3666036
+  },
+  {
+    "institution": "Hospital Italiano",
+    "group": "",
+    "address": "Buenos Aires, Argentina",
+    "lng": -58.3821215,
+    "lat": -34.6036739
+  },
+  {
+    "institution": "Princess Margaret Cancer Centre",
+    "group": "Pugh Lab",
+    "address": "Toronto, ON, Canada",
+    "lng": -79.3831843,
+    "lat": 43.653226
+  },
+  {
+    "institution": "Westmead Institute for Medical Research",
+    "group": "Gynaecological Oncology Research Group",
+    "address": "Westmead NSW 2145, Australia",
+    "lng": 150.9869597,
+    "lat": -33.8085661
+  },
+  {
+    "institution": "NKI",
+    "group": "",
+    "address": "Amsterdam, Netherlands",
+    "lng": 4.9041389,
+    "lat": 52.3675734
+  },
+  {
+    "institution": "Friedrich-Alexander-Universit\u00e4t Erlangen-N\u00fcrnberg",
+    "group": "Chair of Medical Informatics",
+    "address": "91 Erlangen, Germany",
+    "lng": 11.0119611,
+    "lat": 49.5896744
+  },
+  {
+    "institution": "University of Lausanne",
+    "group": "Giovanni Ciriello",
+    "address": "Lausanne, Switzerland",
+    "lng": 6.6322734,
+    "lat": 46.5196535
+  },
+  {
+    "institution": "Netherlands Cancer Institute",
+    "group": "Hugo Horlings / computational pathology",
+    "address": "Amsterdam, Netherlands",
+    "lng": 4.9041389,
+    "lat": 52.3675734
+  },
+  {
+    "institution": "Dana Farber Cancer Institute",
+    "group": "KSG",
+    "address": "Boston, MA, USA",
+    "lng": -71.0565364,
+    "lat": 42.3555076
+  },
+  {
+    "institution": "University of Colorado Anschutz Medical Campus",
+    "group": "Colorado Center for Personalized Medicine",
+    "address": "Denver, CO, USA",
+    "lng": -104.990251,
+    "lat": 39.7392358
+  },
+  {
+    "institution": "Northwestern University",
+    "group": "Jindan Yu",
+    "address": "Chicago, IL, USA",
+    "lng": -87.6297982,
+    "lat": 41.8781136
+  },
+  {
+    "institution": "Sidra Medicine",
+    "group": "Cancer group",
+    "address": "Doha, Qatar",
+    "lng": 51.53103979999999,
+    "lat": 25.2854473
+  },
+  {
+    "institution": "AstraZeneca",
+    "group": "",
+    "address": "Cambridge, UK",
+    "lng": 0.1312729,
+    "lat": 52.1950788
+  },
+  {
+    "institution": "Thomas Jefferson University",
+    "group": "Cancer Informatics",
+    "address": "Philadelphia, PA, USA",
+    "lng": -75.1652215,
+    "lat": 39.9525839
+  },
+  {
+    "institution": "School of Medicine Indiana University",
+    "group": "Center of Data Science",
+    "address": "Indianapolis, IN, USA",
+    "lng": -86.158018,
+    "lat": 39.76909
+  },
+  {
+    "institution": "M2Gen",
+    "group": "ORIEN",
+    "address": "Tampa, FL, USA",
+    "lng": -82.45875269999999,
+    "lat": 27.9516896
+  },
+  {
+    "institution": "ETH Z\u00fcrich",
+    "group": "NEXUS Personalized Health Technologies",
+    "address": "Z\u00fcrich, Switzerland",
+    "lng": 8.541694,
+    "lat": 47.3768866
+  },
+  {
+    "institution": "MD Anderson Cancer Center",
+    "group": "Computational Genomics",
+    "address": "Houston, TX, USA",
+    "lng": -95.37011079999999,
+    "lat": 29.7600771
+  },
+  {
+    "institution": "University of Oxford",
+    "group": "Department of Oncology",
+    "address": "Oxford, UK",
+    "lng": -1.2577263,
+    "lat": 51.7520209
+  },
+  {
+    "institution": "UTSOUTHWESTERN Medical Center",
+    "group": "",
+    "address": "Dallas, TX, USA",
+    "lng": -96.79698789999999,
+    "lat": 32.7766642
+  },
+  {
+    "institution": "Intersect Australia",
+    "group": "",
+    "address": "Sydney NSW, Australia",
+    "lng": 151.2092955,
+    "lat": -33.8688197
+  },
+  {
+    "institution": "University of Minnesota Masonic Cancer Center",
+    "group": "Jinhua Wang/IHI",
+    "address": "Woodbury, MN, USA",
+    "lng": -92.9593797,
+    "lat": 44.9238552
+  },
+  {
+    "institution": "Stanford University",
+    "group": "Ji Lab",
+    "address": "Stanford, CA, USA",
+    "lng": -122.1660756,
+    "lat": 37.42410599999999
+  },
+  {
+    "institution": "Johns Hopkins University",
+    "group": "Oncology BioInformatics",
+    "address": "Baltimore, MD, USA",
+    "lng": -76.6104072,
+    "lat": 39.2905023
+  },
+  {
+    "institution": "Hospital Italiano de Buenos Aires",
+    "group": "Bioinformatica",
+    "address": "Buenos Aires, Argentina",
+    "lng": -58.3821215,
+    "lat": -34.6036739
+  },
+  {
+    "institution": "Institute of Computer Science, Masaryk University",
+    "group": "Division of IT infrastructures",
+    "address": "Brno, Czechia",
+    "lng": 16.6068371,
+    "lat": 49.1950602
+  },
+  {
+    "institution": "Mayo Clinic",
+    "group": "",
+    "address": "Rochester, MN, USA",
+    "lng": -92.45883270000002,
+    "lat": 44.0193287
+  },
+  {
+    "institution": "New York Genome Center",
+    "group": "Computational Biology",
+    "address": "New York, NY, USA",
+    "lng": -74.0059728,
+    "lat": 40.7127753
+  },
+  {
+    "institution": "TGen",
+    "group": "",
+    "address": "Phoenix, AZ, USA",
+    "lng": -112.0776781,
+    "lat": 33.4482266
+  },
+  {
+    "institution": "UCLA",
+    "group": "Chemistry",
+    "address": "Los Angeles, CA, USA",
+    "lng": -118.242643,
+    "lat": 34.0549076
+  },
+  {
+    "institution": "A.C.Camargo",
+    "group": "Bioinformatics",
+    "address": "S\u00e3o Paulo, State of S\u00e3o Paulo, Brazil",
+    "lng": -46.6395571,
+    "lat": -23.5557714
+  },
+  {
+    "institution": "MRC Cancer Unit",
+    "group": "Fitzgerald",
+    "address": "Cambridge, UK",
+    "lng": 0.1312729,
+    "lat": 52.1950788
+  },
+  {
+    "institution": "The Hyve",
+    "group": "Cancer Genomics Team",
+    "address": "Utrecht, Netherlands",
+    "lng": 5.1229572,
+    "lat": 52.09192549999999
+  },
+  {
+    "institution": "The Institute of Cancer Research, London",
+    "group": "Breast Cancer Research Bioinformatics Team",
+    "address": "London, UK",
+    "lng": -0.1275862,
+    "lat": 51.5072178
+  },
+  {
+    "institution": "Chiba University, but the installation is for personal use.",
+    "group": "",
+    "address": "Chiba, Japan",
+    "lng": 140.1065366,
+    "lat": 35.6074041
+  },
+  {
+    "institution": "Memorial Sloan Kettering Cancer Center",
+    "group": "Knowledge Systems",
+    "address": "New York, NY, USA",
+    "lng": -74.0059728,
+    "lat": 40.7127753
+  },
+  {
+    "institution": "Memorial Sloan Kettering Cancer Center",
+    "group": "AACR GENIE",
+    "address": "New York, NY, USA",
+    "lng": -74.0059728,
+    "lat": 40.7127753
+  },
+  {
+    "institution": "Institut Bergoni\u00e9",
+    "group": "",
+    "address": "Bordeaux, France",
+    "lng": -0.5810938000000001,
+    "lat": 44.8416106
+  },
+  {
+    "institution": "Sun Yat-sen University Cancer Center",
+    "group": "",
+    "address": "Guangzhou, Guangdong Province, China",
+    "lng": 113.26436,
+    "lat": 23.1290799
+  },
+  {
+    "institution": "Sidra Medicine",
+    "group": "Cancer Program",
+    "address": "Doha, Qatar",
+    "lng": 51.53103979999999,
+    "lat": 25.2854473
+  },
+  {
+    "institution": " University Hospital Schleswig-Holstein",
+    "group": "Medical Systems Biology Group",
+    "address": "23 L\u00fcbeck, Germany",
+    "lng": 10.6865593,
+    "lat": 53.8654673
+  },
+  {
+    "institution": "Justus-Liebig-University",
+    "group": "Institute of Neuropathology",
+    "address": "35 Giessen, Germany",
+    "lng": 8.678403099999999,
+    "lat": 50.5840512
+  },
+  {
+    "institution": "UC San Diego",
+    "group": "Olivier Harismendy ",
+    "address": "La Jolla, San Diego, CA, USA",
+    "lng": -117.2712717,
+    "lat": 32.8328112
+  },
+  {
+    "institution": "Centro de Gen\u00e9tica y Gen\u00f3mica Instituto de Ciencias e Innovaci\u00f3n en Medicina Facultad de Medicina Cl\u00ednica Alemana Universidad del Desarrollo",
+    "group": "Alejandro Blanco",
+    "address": "Santiago Metropolitan Region, Chile",
+    "lng": -70.6216794,
+    "lat": -33.4843354
+  },
+  {
+    "institution": "Princess Margaret Cancer Centre",
+    "group": "Fraser Lab",
+    "address": "Toronto, ON, Canada",
+    "lng": -79.3831843,
+    "lat": 43.653226
+  },
+  {
+    "institution": "Genentech, Inc",
+    "group": "Jens Reeder",
+    "address": "South San Francisco, CA, USA",
+    "lng": -122.4077498,
+    "lat": 37.654656
+  },
+  {
+    "institution": "University of Turin",
+    "group": "Molecular Oncology",
+    "address": "Turin, Metropolitan City of Turin, Italy",
+    "lng": 7.686856499999999,
+    "lat": 45.070312
+  },
+  {
+    "institution": "UC Davis",
+    "group": "John McPherson",
+    "address": "Sacramento, CA, USA",
+    "lng": -121.4944209,
+    "lat": 38.5781342
+  },
+  {
+    "institution": "IMB Dx",
+    "group": "",
+    "address": "Seoul, South Korea",
+    "lng": 126.9970831,
+    "lat": 37.550263
+  },
+  {
+    "institution": "Weill Cornell Medicine",
+    "group": "Englander Institute for Precision Medicine",
+    "address": "New York, NY, USA",
+    "lng": -74.0059728,
+    "lat": 40.7127753
+  },
+  {
+    "institution": "Children's Hospital of Philadelphia",
+    "group": "The Center for Data Driven Discovery in Biomedicine",
+    "address": "Philadelphia, PA, USA",
+    "lng": -75.1652215,
+    "lat": 39.9525839
+  },
+  {
+    "institution": "University of California, San Francisco",
+    "group": "Molecular Oncology Initiative",
+    "address": "San Francisco, CA, USA",
+    "lng": -122.4194155,
+    "lat": 37.7749295
+  },
+  {
+    "institution": "Fred Hutchinson Cancer Research Center",
+    "group": "Amy Paguirigan",
+    "address": "Seattle, WA, USA",
+    "lng": -122.3328481,
+    "lat": 47.6061389
+  },
+  {
+    "institution": "Cleveland Clinic",
+    "group": "Center for Immunotherapy and Precision Immuno-Oncology (CITI)",
+    "address": "Cleveland, OH, USA",
+    "lng": -81.6943605,
+    "lat": 41.49932
+  },
+  {
+    "institution": "Beijing tiantan hospital",
+    "group": "XuLei Huo",
+    "address": "Beijing, China",
+    "lng": 116.407395,
+    "lat": 39.904211
+  },
+  {
+    "institution": "Johns Hopkins",
+    "group": "",
+    "address": "Baltimore, MD, USA",
+    "lng": -76.6104072,
+    "lat": 39.2905023
+  },
+  {
+    "institution": "Gustave Roussy",
+    "group": "Bioinformatic Core Facility",
+    "address": "94800 Villejuif, France",
+    "lng": 2.359279,
+    "lat": 48.792716
+  },
+  {
+    "institution": "Berlin Institute of Health @ Charite",
+    "group": "Core Unit BioInformatics (CUBI)",
+    "address": "Berlin, Germany",
+    "lng": 13.404954,
+    "lat": 52.52000659999999
+  },
+  {
+    "institution": "Loxo Oncology at Lilly",
+    "group": "Discovery",
+    "address": "South San Francisco, CA, USA",
+    "lng": -122.4077498,
+    "lat": 37.654656
+  },
+  {
+    "institution": "University of Florida",
+    "group": "UF Health Cancer Center",
+    "address": "Gainesville, FL, USA",
+    "lng": -82.324998,
+    "lat": 29.6519563
+  },
+  {
+    "institution": "The University of Kentucky",
+    "group": "Cancer Research Informatics Shared Resource Facility, Markey Cancer Center",
+    "address": "Lexington, KY, USA",
+    "lng": -84.5152662,
+    "lat": 38.0389091
+  },
+  {
+    "institution": "Hadassah Medical Center",
+    "group": "Michal Inbar",
+    "address": "Jerusalem, Israel",
+    "lng": 35.21371,
+    "lat": 31.768319
+  },
+  {
+    "institution": "Institute of Molecular Oncology and Functional Genomics - Technical University of Munich (TUM)",
+    "group": "",
+    "address": "Munich, Germany",
+    "lng": 11.5819806,
+    "lat": 48.1351253
+  },
+  {
+    "institution": "MD Anderson Cancer Center",
+    "group": "Computational Genomics",
+    "address": "Houston, TX, USA",
+    "lng": -95.37011079999999,
+    "lat": 29.7600771
+  },
+  {
+    "institution": "University of Ulsan College of Medicine",
+    "group": "Jang's Lab",
+    "address": "Seoul, South Korea",
+    "lng": 126.9970831,
+    "lat": 37.550263
+  },
+  {
+    "institution": "Ludwig Maximilian University of Munich",
+    "group": "Institute for medical Information Processing, Biometry and Epidemiology",
+    "address": "Munich, Germany",
+    "lng": 11.5819806,
+    "lat": 48.1351253
+  },
+  {
+    "institution": "KKBio",
+    "group": "",
+    "address": "Kyoto, Japan",
+    "lng": 135.7681489,
+    "lat": 35.011564
+  },
+  {
+    "institution": "Health-RI",
+    "group": "Health-RI",
+    "address": "Utrecht, Netherlands",
+    "lng": 5.1229572,
+    "lat": 52.09192549999999
+  },
+  {
+    "institution": "University of Texas Southwestern Medical Center",
+    "group": "",
+    "address": "Dallas, TX, USA",
+    "lng": -96.79698789999999,
+    "lat": 32.7766642
+  },
+  {
+    "institution": "University of Leicester",
+    "group": "Dr. Jinli Luo",
+    "address": "Leicester, UK",
+    "lng": -1.1397592,
+    "lat": 52.6368778
+  },
+  {
+    "institution": "Sanofi",
+    "group": "christophe.brun@sanofi.com",
+    "address": "94400 Vitry-sur-Seine, France",
+    "lng": 2.3955274,
+    "lat": 48.7930745
+  },
+  {
+    "institution": "Universit\u00e4tsklinikum Regensburg",
+    "group": "Abteilung f\u00fcr Neuropathologie",
+    "address": "93 Regensburg, Germany",
+    "lng": 12.1016236,
+    "lat": 49.0134297
+  },
+  {
+    "institution": "Huntsman Cancer Institute",
+    "group": "aaron.atkinson@hci.utah.edu",
+    "address": "Salt Lake City, UT, USA",
+    "lng": -111.8881397,
+    "lat": 40.7605601
+  },
+  {
+    "institution": "Ryvu Therapeutics",
+    "group": "Bioinformatics team",
+    "address": "Krak\u00f3w, Poland",
+    "lng": 19.9449799,
+    "lat": 50.06465009999999
+  },
+  {
+    "institution": "Jinan University",
+    "group": "yangzhiyun",
+    "address": "Guangzhou, Guangdong Province, China",
+    "lng": 113.26436,
+    "lat": 23.1290799
+  },
+  {
+    "institution": "Medical Center - University of Freiburg",
+    "group": "Institute of Medical Bioinformatics and Systems Medicine",
+    "address": "79 Freiburg im Breisgau, Germany",
+    "lng": 7.842104299999999,
+    "lat": 47.9990077
+  },
+  {
+    "institution": "Parc de Salut Mar",
+    "group": "",
+    "address": "Barcelona, Spain",
+    "lng": 2.168568,
+    "lat": 41.3873974
+  },
+  {
+    "institution": "CHUGA",
+    "group": "",
+    "address": "Grenoble, France",
+    "lng": 5.724524,
+    "lat": 45.188529
+  },
+  {
+    "institution": "BC Cancer Research Centre",
+    "group": "Aparicio Lab",
+    "address": "Vancouver, BC, Canada",
+    "lng": -123.1207375,
+    "lat": 49.2827291
+  },
+  {
+    "institution": "National Yang Ming Chiao Tung University",
+    "group": "School of Dentistry",
+    "address": "Taipei, Taiwan",
+    "lng": 121.5654177,
+    "lat": 25.0329694
+  },
+  {
+    "institution": "Wenjing Sun",
+    "group": "",
+    "address": "Dalian, Liaoning, China",
+    "lng": 121.6147,
+    "lat": 38.9139899
+  },
+  {
+    "institution": "University College London - Cancer Institute",
+    "group": "Herrero Lab",
+    "address": "London, UK",
+    "lng": -0.1275862,
+    "lat": 51.5072178
+  },
+  {
+    "institution": "University of Birmingham",
+    "group": "Andrew Beggs",
+    "address": "Birmingham B15 2TT, UK",
+    "lng": -1.9278904,
+    "lat": 52.4532817
+  },
+  {
+    "institution": "Deutsches Krebsforschungszentrum(DKFZ)",
+    "group": "Leila Kamkar",
+    "address": "69 Heidelberg, Germany",
+    "lng": 8.6724335,
+    "lat": 49.3987524
+  },
+  {
+    "institution": "Sunnybrook Research Institute",
+    "group": "Biomatrix",
+    "address": "Toronto, ON, Canada",
+    "lng": -79.3831843,
+    "lat": 43.653226
+  },
+  {
+    "institution": "Caris Life Sciences",
+    "group": "Translational Informatics",
+    "address": "Irving, TX, USA",
+    "lng": -96.95468989999999,
+    "lat": 32.8136151
+  },
+  {
+    "institution": "IRCCS Regina Elena National Cancer Institute ",
+    "group": "Clinical Informatics",
+    "address": "Rome, Metropolitan City of Rome Capital, Italy",
+    "lng": 12.4822025,
+    "lat": 41.8967068
+  },
+  {
+    "institution": "Institue of Molecular and Translational Medicine, Faculty of Medicine and Dentistry, Palacky University",
+    "group": "",
+    "address": "Olomouc, Czechia",
+    "lng": 17.2508787,
+    "lat": 49.593778
+  },
+  {
+    "institution": "The University of Tokyo",
+    "group": "Department of Preventive Medicine",
+    "address": "Tokyo, Japan",
+    "lng": 139.650027,
+    "lat": 35.6764225
+  },
+  {
+    "institution": "Leiden University Medical Center",
+    "group": "Sequencing Analysis Support Core",
+    "address": "Leiden, Netherlands",
+    "lng": 4.4802444,
+    "lat": 52.16361879999999
+  },
+  {
+    "institution": "Institute of Materia Medica, CAMS & PUMC",
+    "group": "",
+    "address": "Beijing, China",
+    "lng": 116.407395,
+    "lat": 39.904211
+  },
+  {
+    "institution": "IiSGM",
+    "group": "",
+    "address": "Madrid, Spain",
+    "lng": -3.7032905,
+    "lat": 40.41672790000001
+  },
+  {
+    "institution": "Arizona State University",
+    "group": "",
+    "address": "Tempe, AZ, USA",
+    "lng": -111.9400054,
+    "lat": 33.4255104
+  },
+  {
+    "institution": "Division of Oncology, Department of Internal Medicine, Medical University of Graz",
+    "group": "",
+    "address": "Graz, Austria",
+    "lng": 15.4417305,
+    "lat": 47.0678961
+  },
+  {
+    "institution": "Indian Institute of Technology Madras and Karkinos Healthcare",
+    "group": "vinod.scaria@karkinos.in / Karkinos Healthcare",
+    "address": "Chennai, Tamil Nadu, India",
+    "lng": 80.2704622,
+    "lat": 13.0843007
+  }
+]
