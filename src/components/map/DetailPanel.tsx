@@ -26,8 +26,8 @@ const DetailPanel = ({
       <LocationsList 
         installations={visibleInstallations} 
         totalInstallations={installations.length}
-        uniqueCountriesCount={getUniqueCountriesCount(installations)}
-        uniqueOrganizationsCount={getUniqueOrganizationsCount(installations)}
+        uniqueCountriesCount={2}
+        uniqueOrganizationsCount={2}
         selectedInstallation={selectedInstallation}
         hoveredInstallation={hoveredInstallation}
         onSelect={onSelectInstallation}

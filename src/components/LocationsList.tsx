@@ -34,11 +34,11 @@ const LocationsList = ({
     <div className="p-4 bg-white rounded-lg rounded-tl-none rounded-bl-none shadow-soft h-full overflow-hidden flex flex-col">
       <h3 className="font-semibold text-lg mb-4 text-cbioportal-darkBlue">cBioPortal Instances</h3>
       
-      <InstallationStats 
-        uniqueCountriesCount={uniqueCountriesCount}
-        uniqueOrganizationsCount={uniqueOrganizationsCount}
-        totalInstallations={totalInstallations}
-      />
+      {/*<InstallationStats */}
+      {/*  uniqueCountriesCount={uniqueCountriesCount}*/}
+      {/*  uniqueOrganizationsCount={uniqueOrganizationsCount}*/}
+      {/*  totalInstallations={totalInstallations}*/}
+      {/*/>*/}
       
       <SearchBar 
         searchTerm={searchTerm}

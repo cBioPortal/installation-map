@@ -28,27 +28,12 @@ const InstallationItem = React.forwardRef<HTMLLIElement, Omit<InstallationItemPr
         onMouseEnter={() => onHover(installation)}
         onMouseLeave={() => onHover(null)}
       >
-        <div className="font-medium text-gray-800">{installation.name}</div>
-        <div className="text-sm text-cbioportal-blue mt-1">{installation.organization}</div>
+        <div className="font-medium text-gray-800">{installation.institution}</div>
+        <div className="text-sm text-cbioportal-blue mt-1">{installation.group}</div>
         <div className="text-xs text-gray-500 mt-0.5 flex items-center">
           <Globe className="h-3 w-3 mr-1 inline-block text-gray-400" />
-          {installation.location}
+          {installation.address}
         </div>
-        
-        {installation.website && (
-          <div className="text-xs text-gray-600 mt-1 truncate">
-            <a 
-              href={installation.website} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-cbioportal-blue hover:underline"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {installation.website.replace(/^https?:\/\//, '')}
-            </a>
-          </div>
-        )}
-        
         {isSelected && (
           <div className="absolute right-2 top-2 h-2 w-2 bg-cbioportal-blue rounded-full" />
         )}

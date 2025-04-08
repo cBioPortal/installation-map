@@ -1,11 +1,7 @@
 import { Installation } from "@/types/installation";
 import {Button} from "@/components/ui/button.tsx";
 
-interface AddInstallationSectionProps {
-  onAddInstallation: (installation: Installation) => void;
-}
-
-const AddInstallationSection = ({ onAddInstallation }: AddInstallationSectionProps) => {
+const AddInstallationSection = () => {
   return (
     <section id="add-installation" className="section-padding bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto">
@@ -26,10 +22,6 @@ const AddInstallationSection = ({ onAddInstallation }: AddInstallationSectionPro
               {"Submit My Info"}</a>
             </Button>
           </div>
-          
-          {/*<div className="bg-white rounded-xl shadow-lg overflow-hidden p-8">*/}
-          {/*  <InstallationForm onAddInstallation={onAddInstallation} />*/}
-          {/*</div>*/}
         </div>
       </div>
     </section>

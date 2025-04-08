@@ -11,7 +11,7 @@ import { Instance } from '@/types/instance';
 export const createMarkerFeatures = (installations: Instance[]): Feature[] => {
   return installations.map(installation => {
     const feature = new Feature({
-      geometry: new Point(fromLonLat(installation.coordinates)),
+      geometry: new Point(fromLonLat([installation.lng, installation.lat])),
       installation
     });
     
@@ -57,7 +57,7 @@ export const centerMapOnInstallation = (map: Map | null, installation: Instance)
   const view = map.getView();
   
   view.animate({
-    center: fromLonLat(installation.coordinates),
+    center: fromLonLat([installation.lng, installation.lat]),
     duration: 1000,
     zoom: Math.max(view.getZoom() || 2, 4)
   });

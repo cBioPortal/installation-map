@@ -1,9 +1,8 @@
 export interface Instance {
   id: string;
-  name: string;
-  organization: string;
-  location: string;
-  coordinates: [number, number]; // [longitude, latitude]
-  website?: string;
-  contactEmail?: string;
+  institution: string;
+  group: string;
+  address: string;
+  lng: number;
+  lat: number;
 }
