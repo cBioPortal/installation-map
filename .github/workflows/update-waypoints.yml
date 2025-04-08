@@ -1,17 +1,17 @@
 name: Update-Waypoints
 
-# Run this workflow every hour
+# Run this workflow once a week at Sunday
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "0 0 * * 0"
 
 jobs:
   create-json:
     name: Creates or updates waypoints.json
     runs-on: ubuntu-22.04
     env:
-      DEFAULT_BRANCH: master
+      WAYPOINTS_DEST: "public/auto_generated_waypoints.json"
     defaults:
       run:
         shell: bash
@@ -22,61 +22,45 @@ jobs:
           sudo apt-get --yes install python3-pip
           sudo pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
           sudo pip3 install -U pip setuptools
-          sudo pip3 install -U googlemaps
-      # Checks out a copy of your repository on the ubuntu-latest machine
+          sudo pip3 install --use-pep517 googlemaps
+          sudo pip3 install pandas
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Decrypt large secrets
-        run: ./.github/scripts/decrypt_secret.sh
-        env:
-          LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
-      - name: Copy over decrypted secrets
-        run: |
-          cp $HOME/secrets/credentials.json .
-          cp $HOME/secrets/token.pickle .
-      - name: View current working directory
-        run: |
-          ls -ltra src/
-      - name: Check whether waypoints.json already exists
-        run: |
-          if ls src/waypoints.json; then
-            echo "already_exists=true" >> $GITHUB_ENV
-            cat src/waypoints.json
-          else
-            echo "already_exists=false" >> $GITHUB_ENV
-          fi
+        uses: actions/checkout@v4
       - name: Set environment variables and update waypoints.json
         run: |
           export SPREADSHEET_ID="$GOOGLE_SPREADSHEET_ID"
           export GEOCODING_API_KEY="$GOOGLE_GEOCODING_API_KEY"
+          TEMP_DIR=$(mktemp -d)
+          export CREDENTIALS_PATH="$TEMP_DIR"/credentials.json
+          echo "$GOOGLE_SERVICE_ACCOUNT" > $CREDENTIALS_PATH
           python3 update_waypoints.py
         env:
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
           GOOGLE_GEOCODING_API_KEY: ${{ secrets.GOOGLE_GEOCODING_API_KEY }}
-      - name: View current working directory and waypoints.json
-        run: |
-          ls -ltra src/
-          cat src/waypoints.json
-          cp src/waypoints.json public/static/waypoints.json
-      # Exit code of 0 means no changes, and 0 is true in the shell.
-      - name: Check for changes
-        run: |
-          if git diff --exit-code; then
-            echo "changes_exist=false" >> $GITHUB_ENV
-          else
-            echo "changes_exist=true" >> $GITHUB_ENV
-          fi
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       - name: Add and commit changes to waypoints.json
-        if: ${{ env.changes_exist == 'true' || env.already_exists == 'false' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add src/waypoints.json
-          git add public/static/waypoints.json
-          git commit -m "Update waypoints.json with new rows"
+          git diff $WAYPOINTS_DEST
+          git add $WAYPOINTS_DEST
+          git commit -m "Update waypoints.json"
       - name: Push changes to repository
-        if: ${{ env.changes_exist == 'true' || env.already_exists == 'false' }}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+      # - name: Add and commit changes to waypoints.json
+      #   if: ${{ env.changes_exist == 'true' || env.already_exists == 'false' }}
+      #   run: |
+      #     git config --local user.email "action@github.com"
+      #     git config --local user.name "GitHub Action"
+      #     git add src/waypoints.json
+      #     git add public/static/waypoints.json
+      #     git commit -m "Update waypoints.json with new rows"
+      # - name: Push changes to repository
+      #   if: ${{ env.changes_exist == 'true' || env.already_exists == 'false' }}
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ github.ref }}

@@ -1,345 +1,122 @@
-from __future__ import print_function
-import pickle
-import os
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
+import os.path
+
 from google.auth.transport.requests import Request
+from google.oauth2 import service_account
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 import googlemaps
+import pandas as pd
 import json
-from itertools import zip_longest
 
 # Google Sheets API
-# If modifying these scopes, delete the file token.pickle.
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 # The ID and range of a spreadsheet.
 SPREADSHEET_ID = os.getenv("SPREADSHEET_ID")
-COLS = "A:A F:M"
+RANGE = "A:T"
+FILTER_BY_COL = ['approved', 'institution or company name', 'contact name / group or lab', 'city', 'state / province', 'country', 'web link?']
 
 # Geocoding API
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
 
-# Specified directory and file
-SRC_DIR = "./src"
-WAYPOINTS = "%s/waypoints.json" % SRC_DIR
+# Google Service Account
+GOOGLE_SERVICE_ACCOUNT = os.getenv("CREDENTIALS_PATH")
 
+# Waypoints destination
+WAYPOINTS_DEST = os.getenv("WAYPOINTS_DEST")
 
-def create_waypoints(input_sheet):
-    """
-    If input_sheet already exists, then it will be updated with all valid rows
-    following the last stored entry. Otherwise, input_sheet will be created
-    with all rows in the Google Sheet.
-    """
-    rows = extract_rows(input_sheet)
-    try:
-        final = json.load(open(input_sheet))
-        if not rows:
-            print(
-                "No data found! Either the Google Sheet is empty, or has "
-                + "not been updated since the last time this script was "
-                + "run."
-            )
-        else:
-            print(
-                'Updating "'
-                + input_sheet
-                + '" following the last '
-                + "successful row. The Google Sheet also may have been "
-                + "updated since the last time this script was run."
-            )
-    except FileNotFoundError:
-        print('File "' + input_sheet + '" does not already exist. Creating.')
-        if not os.path.exists(SRC_DIR):
-            os.makedirs(SRC_DIR)
-        final = []
-    finally:
-        keys = extract_keys()
-        approved = list(filter(is_approved(keys), rows))
-        successes = list(filter(is_successful(keys), approved))
-        waypoints = list(map(create_waypoint(keys), successes))
-        valid_waypoints = list(filter(is_valid, waypoints))
-        final += valid_waypoints
-        out_file = open(input_sheet, "w")
-        json.dump(final, out_file)
-        out_file.close()
-        print('Successfully geocoded valid rows in "' + input_sheet + '".')
+# Get credentials from service account
+def get_creds():
+    return service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
 
-
-def extract_rows(input_sheet):
-    """
-    Gets an array of arrays rows that follow the last successful row stored in
-    input_sheet, from the 1-indexed Google Sheet.
-    """
-    row_num = next_row_number(input_sheet)
-    ranges = extract_ranges(COLS, row_num, None)
-    rows = extract_values(SCOPES, SPREADSHEET_ID, ranges)
-    for i, row in enumerate(rows, start=row_num):
-        row.append(i)
-    return rows
-
-
-def extract_keys():
-    """
-    Gets an array keys, which is the first row in the 1-indexed Google Sheet.
-    """
-    ranges = extract_ranges(COLS, 1, 1)
-    keys = extract_values(SCOPES, SPREADSHEET_ID, ranges)[0]
-    keys.append("index")
-    return keys
-
-
-def is_approved(keys):
-    """
-    Checks whether an array row designates an approved installation.
-    """
-
-    def predicate(row):
-        i = keys.index("Approved")
-        try:
-            approved = row[i].lower() == "yes"
-        except IndexError:
-            approved = False
-        finally:
-            return approved
-
-    return predicate
-
-
-def is_successful(keys):
-    """
-    Checks whether an array row designates a successful installation, based on
-    the values corresponding to the column headers.
-    """
-
-    def predicate(row):
-        i = keys.index("Have you already tried to deploy (install) cBioPortal?")
-        j = keys.index("Success?")
-        try:
-            successful = row[i] != "Not yet" and row[j] == "Yes"
-        except IndexError:
-            successful = False
-        finally:
-            return successful
-
-    return predicate
-
-
-def create_waypoint(keys):
-    """
-    Given a geocode_result array, header keys, and row array, this creates a
-    dictionary waypoint. If geocode_result is empty, then return an empty
-    waypoint.
-    """
-
-    def predicate(row):
-        city = row[keys.index("City")]
-        state = row[keys.index("State / Province")]
-        country = row[keys.index("Country")]
-        geocode_result = extract_geocode_result(city, state, country)
-        if not geocode_result:
-            return {}
-        waypoint = convert_array_to_dict(keys, row)
-        waypoint = add_coordinates_and_address(geocode_result, waypoint)
-        waypoint = remove_extraneous_columns(waypoint)
-        waypoint = rename_keys(waypoint)
-        return waypoint
-
-    return predicate
-
-
-def is_valid(waypoint):
-    """
-    Given a dictionary waypoint, check whether it is empty.
-    """
-    return not not waypoint
-
-
-def next_row_number(input_sheet):
-    """
-    Gets the 1-indexed Google Sheet row number of the row following the last
-    successful row from input_sheet, which consists of an array of waypoint
-    objects. If input_sheet doesn't already exist, then row_num refers to the
-    row following the keys of the Google Sheet.
-    """
-    try:
-        f = open(input_sheet)
-        data = json.load(f)
-        last = len(data) - 1
-        row_num = data[last]["index"] + 1
-    except FileNotFoundError:
-        row_num = 2
-    finally:
-        return row_num
-
-
-def extract_ranges(cols, left_row_num, right_row_num):
-    """
-    From the arrays left_cols and right_cols, this gets the ranges array for
-    making a Geocoding API spreadsheets.values.batchGet call. All ranges must
-    begin and end at the same row number, or else a ragged array is returned.
-    """
-    ranges = []
-    pair = extract_cols(cols)
-    left_cols = pair[0]
-    right_cols = pair[1]
-    for left, right in zip(left_cols, right_cols):
-        ranges.append(extract_range(left, right, left_row_num, right_row_num))
-    return ranges
-
-
-def extract_values(scopes, spreadsheet_id, ranges):
-    """
-    Reads a Google Sheet, selects variable ranges of columns, joins the
-    columns as an array of rows, and returns the rows as a 2D array of
-    strings.
-    """
-    creds = get_creds(None, scopes)
+# Read spreadsheet and return a pandas dataframe
+def spreadsheet_to_pandas(creds):
+    # Fetch values
     service = build("sheets", "v4", credentials=creds)
-
-    # Call the Sheets API
     sheet = service.spreadsheets()
     result = (
         sheet.values()
-        .batchGet(spreadsheetId=spreadsheet_id, ranges=ranges, majorDimension="COLUMNS")
+        .get(spreadsheetId=SPREADSHEET_ID, range=RANGE)
         .execute()
     )
-    value_ranges = result.get("valueRanges", [])
-    column_values = []
-    for response in value_ranges:
-        column_values.extend(response.get("values", []))
-    values_as_list_of_tuples = list(zip_longest(*column_values, fillvalue=""))
-    dump = json.dumps(values_as_list_of_tuples)
-    row_values = json.loads(dump)
-    return row_values
+    values = result.get("values", [])
 
+    if not values:
+        print("WARN: No data found.")
+        return
 
-def extract_cols(cols):
-    """
-    Given a string cols which contains a variable number of ranges and is
-    space delimited by left:right couples, this returns a pair of arrays
-    denoting the left and right columns.
-    """
-    left_cols = []
-    right_cols = []
-    couples = cols.split(" ")
-    for couple in couples:
-        separated = couple.split(":")
-        left_cols.append(separated[0])
-        right_cols.append(separated[1])
-    return (left_cols, right_cols)
+    # Convert to pandas dataframe
+    df = pd.DataFrame(values[1:], columns=values[0], dtype=str).fillna("")
+    df.columns = df.columns.str.lower().str.strip()
 
+    return df
 
-def extract_range(left_col, right_col, left_row_num, right_row_num):
-    """
-    Gets a range. If right_row_num is not an int, then the returned ranges
-    will indicate the entire Google Sheet beyond left_row_num.
-    """
-    try:
-        r = "%s%d:%s%d" % (left_col, left_row_num, right_col, right_row_num)
-    except TypeError:
-        r = "%s%d:%s" % (left_col, left_row_num, right_col)
-    finally:
-        return r
-
-
-def get_creds(creds, scopes):
-    """
-    Adapted from the Google Sheets Python Quickstart guide at
-    https://developers.google.com/sheets/api/quickstart/python.
-    """
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists("token.pickle"):
-        with open("token.pickle", "rb") as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open("token.pickle", "wb") as token:
-            pickle.dump(creds, token)
-    return creds
-
-
-def extract_geocode_result(city, state, country):
-    """
-    Tries to get a geocode_result array from 3 address strings,
-    depending on whether a valid geocode_result was returned.
-    Otherwise, an empty array is returned.
-    """
+# Get raw geocode given city, state, and country
+def get_raw_geocode(city, state, country):
     gmaps = googlemaps.Client(key=GEOCODING_API_KEY)
     geocode_result = gmaps.geocode("%s %s %s" % (city, state, country))
     if not geocode_result:
         geocode_result = gmaps.geocode("%s %s" % (state, country))
     if not geocode_result:
         geocode_result = gmaps.geocode(country)
+    if not geocode_result:
+        return None
+    
     return geocode_result
 
+# Parse geocode and return address, longitude, latitude
+def parse_geocode(raw_geocode):
+    formatted_address = raw_geocode[0]["formatted_address"]
+    location = raw_geocode[0]["geometry"]["location"]
+    lng, lat = location["lng"], location["lat"]
+    return formatted_address, lng, lat
 
-def convert_array_to_dict(keys, row):
-    """
-    Converts an array row to a dictionary based on the header keys, and returns
-    the dictionary.
-    """
-    newRow = {}
-    for i, col in enumerate(row):
-        newRow[keys[i]] = col
-    return newRow
-
-
-def add_coordinates_and_address(geocode_result, row):
-    """
-    Updates a dictionary row with new coordinates and address keys.
-    """
-    formatted_address = geocode_result[0]["formatted_address"]
-    location = geocode_result[0]["geometry"]["location"]
-    lat = location["lat"]
-    lng = location["lng"]
-    coordinates = [lng, lat]
-    row["coordinates"] = coordinates
-    row["address"] = formatted_address
-    return row
-
-
-def remove_extraneous_columns(row):
-    """
-    Returns a dictionary row without certain columns, as such data will be
-    unused.
-    """
-    # Some rows don't contain the "Success" entry.
-    row.pop("Success?", None)
-    row.pop("Have you already tried to deploy (install) cBioPortal?")
-    row.pop("City")
-    row.pop("State / Province")
-    row.pop("Country")
-    row.pop("Approved")
-    return row
-
-
-def rename_keys(row):
-    """
-    Given a dictionary row, remove certain columns and add back the same data
-    under different keys.
-    """
-    row["institution"] = row.pop("Institution or Company Name")
-    row["category"] = row.pop("Category")
-    row["lab"] = row.pop("Contact Name / Group or Lab ")
-    return row
-
+# Save given list of json objects to a json file
+def save_json(data, dest):
+    with open(dest, "w") as f:
+        json.dump(data, f, indent=2)
 
 def main():
-    """
-    Gets specified columns from a Google Sheet, geocodes addresses to
-    (lng, lat) coordinates, and produces a waypoints JSON file.
-    """
-    print("Updating JSON file!")
-    create_waypoints(WAYPOINTS)
+    creds = service_account.Credentials.from_service_account_file(GOOGLE_SERVICE_ACCOUNT, scopes=SCOPES)
+    df = spreadsheet_to_pandas(creds).fillna("")
+    df_approved = df[df[df.columns[0]].str.strip().str.lower() == "yes"]
+    
+    print("Geocoding waypoints...")
+    geocoded_waypoints = []
+    failed_waypoints = []
+    for index, row in df_approved.iterrows():
+        curr_waypoint = [row[col] for col in FILTER_BY_COL]
+        curr_geocode = get_raw_geocode(curr_waypoint[3], curr_waypoint[4], curr_waypoint[5])
 
+        if curr_geocode:
+            address, lng, lat = parse_geocode(curr_geocode)
+
+            geocoded_waypoints.append({
+                "id": index,
+                "institution": curr_waypoint[1],
+                "group": curr_waypoint[2],
+                "address": address,
+                "lng": lng,
+                "lat": lat
+            })
+        else:
+            failed_waypoints.append({
+                "row_number": index,
+                "institution": curr_waypoint[1],
+                "group": curr_waypoint[2]
+            })
+
+    save_json(geocoded_waypoints, WAYPOINTS_DEST)
+
+    print(f"Total waypoints: {df.shape[0]}")
+    print(f"Approved waypoints: {df_approved.shape[0]}")
+    print(f"Waypoints succesfully geocoded: {len(geocoded_waypoints)}/{df_approved.shape[0]}")
+
+    if len(geocoded_waypoints) < df_approved.shape[0]:
+        print(f"WARNING: The following waypoints failed to geocode. Fix their location and rerun action.")
+        print(json.dumps(failed_waypoints, indent=2))
 
 if __name__ == "__main__":
-    main()
+  main()

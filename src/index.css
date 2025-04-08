@@ -1,291 +1,102 @@
-/* Set variables to alter color */
-:root {
-  --default-marker-color: #3786c2;
-  --highlighted-marker-color: #213d75;
-  --highlighted-row-color: #213d75;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 20% 98%; /* Soft light gray */
+    --foreground: 222 47% 11%; /* Deep navy */
+
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 221 83% 53%; /* Solid deep blue */
+    --primary-foreground: 210 40% 98%; /* Light text */
+
+    --secondary: 215 28% 88%; /* Soft gray-blue */
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 215 28% 88%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 221 83% 53%; /* Consistent deep blue */
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 347 77% 58%; /* Soft red */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 91%; /* Light gray-blue border */
+    --input: 214 32% 91%;
+    --ring: 222 84% 5%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222 47% 11%; /* Dark navy */
+    --foreground: 210 40% 98%; /* Light text */
+
+    --card: 224 33% 17%; /* Dark gray-blue */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 224 33% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 221 83% 53%; /* Consistent deep blue */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 224 33% 22%; /* Slightly darker blue */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 224 33% 22%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 221 83% 53%; /* Consistent deep blue */
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 347 77% 38%; /* Darker soft red */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 224 33% 22%; /* Dark border */
+    --input: 224 33% 22%;
+    --ring: 212 26% 84%;
+  }
 }
 
-@keyframes grow-shrink {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.15);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  overflow-y: hidden;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.428571429;
-  color: #333333;
+  font-family: 'Inter', sans-serif;
 }
 
-#wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@layer components {
+  .gradient-heading {
+    @apply bg-gradient-to-r from-cbioportal-darkBlue to-cbioportal-blue bg-clip-text text-transparent;
+  }
+  
+  .glass-panel {
+    @apply backdrop-blur-md bg-white/70 border border-white/20 shadow-lg;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .section-padding {
+    @apply py-12 md:py-16;
+  }
 }
 
-.sidebar,
-.mapchart {
-  align-self: stretch;
-}
-
-.sidebar {
-  background-color: #f5f5f5;
-  padding: 5px;
-}
-
-.sidebar h1 {
-  font-size: 24px;
-  color: var(--default-marker-color);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  line-height: 1.1;
-  margin: 0 0.5em 0.67em 0;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.mapchart {
-  background: #fff;
-  cursor: grab;
-}
-
-.mapchart:active,
-.mapchart:focus-within {
-  cursor: grabbing;
-}
-
-.controls {
-  margin-top: 1.25rem;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-}
-
-.controls button {
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  height: 2rem;
-  width: 2rem;
-  border-radius: 100%;
-  border: 0;
-  background: var(--default-marker-color);
-}
-
-.controls button:hover {
-  background: var(--highlighted-marker-color);
-  cursor: default;
-}
-
-.controls > button:first-child {
-  margin-right: 0.25rem;
-}
-
-.rsm-marker .highlighted {
-  fill: var(--highlighted-marker-color);
-  transform-origin: 2% 6%;
-  animation: grow-shrink 2.5s forwards;
-}
-
-.rsm-marker .unhighlighted {
-  fill: var(--default-marker-color);
-}
-
-.rsm-marker:hover,
-.rsm-marker:active {
-  cursor: default;
-}
-
-.invisible {
-  visibility: hidden;
-}
-
-/* Outline width can't change upon zoom, so hide it. */
-.rsm-geography,
-.search input,
-.controls button {
-  outline: 0;
-}
-
-.rsm-geography.border {
-  fill: none;
-}
-
-.filter-options {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.filter-options > form {
-  display: flex;
-  margin-right: 5px;
-  justify-content: center;
-}
-
-.filter-options > form:last-child {
-  margin-right: 0;
-}
-
-.search {
-  flex-grow: 1;
-}
-
-.search input {
-  display: block;
-  color: #555555;
-  background-image: none;
-  border: 1px solid #ddd;
-  font-size: 12px;
-  padding: 5px 10px;
-  line-height: 1.5;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-}
-
-.search input[type="text"] {
-  background: #fff;
-  border-radius: 3px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  flex-grow: 1;
-}
-
-.search input[type="text"]:focus {
-  border-color: #66afe9;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(102, 175, 233, 0.6);
-}
-
-.search input[type="button"] {
-  background: #ddd;
-  border-radius: 3px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  cursor: default;
-}
-
-.search input[type="button"]:hover {
-  background: #ccc;
-  border: 1px solid #ccc;
-}
-
-#sideTableHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  font-size: 24px;
-  color: var(--default-marker-color);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  line-height: 1.1;
-  margin: 0 0 0.67em 0;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-#description,
-#waypoints,
-#waypoint-details {
-  background: #fff;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-#description,
-#waypoints {
-  margin-bottom: 20px;
-}
-
-#waypoints .highlighted {
-  background: var(--highlighted-row-color) !important;
-  color: #fff;
-}
-
-#waypoints thead th {
-  box-shadow: 0 2px 0 #ccc;
-  position: sticky;
-  top: 0;
-  text-transform: capitalize;
-}
-
-#waypoints tbody td,
-#waypoint-details td {
-  padding: 3px 10px;
-  border-top: none;
-}
-
-#waypoints tr {
-  transition: color ease-in-out 0.15s;
-}
-
-#waypoints tr,
-.search input[type="button"],
-.controls button {
-  transition: background-color ease-in-out 0.15s;
-}
-
-#waypoints-head th,
-#waypoint-details th {
-  vertical-align: top;
-  line-height: 1.1;
-  padding: 8px;
-  text-align: left;
-  background: #fff;
-}
-
-#waypoints tr:nth-child(odd),
-#waypoint-details tr:nth-child(odd) td {
-  background: #f9f9f9;
-}
-
-#waypoints tr:nth-child(even),
-#waypoint-details tr:nth-child(even) td {
-  background: #fff;
-}
-
-#waypoint-details thead {
-  border-bottom: 1px solid #ccc;
-}
-
-#waypoint-details tr {
-  display: flex;
-}
-
-#waypoint-details th {
-  flex: 2;
-}
-
-#waypoint-details td {
-  flex-grow: 1;
-  flex: 3;
-}
-
-.tableFixHead {
-  overflow-y: auto;
-  max-height: 20em;
-}
-
-.tableFixHead p {
-  margin: 0;
-  padding: 0 10px;
-  text-align: center;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
 }
