@@ -22,7 +22,7 @@ FILTER_BY_COL = ['approved', 'institution or company name', 'contact name / grou
 GEOCODING_API_KEY = os.getenv("GEOCODING_API_KEY")
 
 # Google Service Account
-GOOGLE_SERVICE_ACCOUNT = "credentials.json"
+GOOGLE_SERVICE_ACCOUNT = os.getenv("CREDENTIALS_PATH")
 
 # Waypoints destination
 WAYPOINTS_DEST = os.getenv("WAYPOINTS_DEST")
@@ -112,8 +112,10 @@ def main():
     print(f"Total waypoints: {df.shape[0]}")
     print(f"Approved waypoints: {df_approved.shape[0]}")
     print(f"Waypoints succesfully geocoded: {len(geocoded_waypoints)}/{df_approved.shape[0]}")
-    print(f"WARNING: The following waypoints failed to geocode. Fix their location and rerun action.")
-    print(json.dumps(failed_waypoints, indent=2))
+
+    if len(geocoded_waypoints) < df_approved.shape[0]:
+        print(f"WARNING: The following waypoints failed to geocode. Fix their location and rerun action.")
+        print(json.dumps(failed_waypoints, indent=2))
 
 if __name__ == "__main__":
   main()

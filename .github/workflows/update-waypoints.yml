@@ -1,17 +1,17 @@
 name: Update-Waypoints
 
-# Run this workflow every hour
+# Run this workflow once a week at Sunday
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "0 0 * * 0"
 
 jobs:
   create-json:
     name: Creates or updates waypoints.json
     runs-on: ubuntu-22.04
     env:
-      WAYPOINTS_DEST: "public/auto_generated_waypoint.json"
+      WAYPOINTS_DEST: "public/auto_generated_waypoints.json"
     defaults:
       run:
         shell: bash
@@ -30,24 +30,26 @@ jobs:
         run: |
           export SPREADSHEET_ID="$GOOGLE_SPREADSHEET_ID"
           export GEOCODING_API_KEY="$GOOGLE_GEOCODING_API_KEY"
-          echo "$GOOGLE_SERVICE_ACCOUNT" > credentials.json
+          TEMP_DIR=$(mktemp -d)
+          export CREDENTIALS_PATH="$TEMP_DIR"/credentials.json
+          echo "$GOOGLE_SERVICE_ACCOUNT" > $CREDENTIALS_PATH
           python3 update_waypoints.py
         env:
           GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
           GOOGLE_GEOCODING_API_KEY: ${{ secrets.GOOGLE_GEOCODING_API_KEY }}
           GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-      - name: Check for changes
+      - name: Add and commit changes to waypoints.json
         run: |
-          cat $WAYPOINTS_DEST
-          git status
-          git diff
-      # - name: Check for changes
-      #   run: |
-      #     if git diff --exit-code; then
-      #       echo "changes_exist=false" >> $GITHUB_ENV
-      #     else
-      #       echo "changes_exist=true" >> $GITHUB_ENV
-      #     fi
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git diff $WAYPOINTS_DEST
+          git add $WAYPOINTS_DEST
+          git commit -m "Update waypoints.json"
+      - name: Push changes to repository
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
       # - name: Add and commit changes to waypoints.json
       #   if: ${{ env.changes_exist == 'true' || env.already_exists == 'false' }}
       #   run: |
