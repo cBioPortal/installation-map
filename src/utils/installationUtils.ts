@@ -4,7 +4,7 @@ import { Instance } from "@/types/instance";
 export const getUniqueCountriesCount = (instances: Instance[]): number => {
   const uniqueCountries = new Set(
     instances.map(instance => {
-      const parts = instance.location.split(", ");
+      const parts = instance.address.split(", ");
       return parts[parts.length - 1]; // Get the last part which should be the country
     })
   );
@@ -13,7 +13,7 @@ export const getUniqueCountriesCount = (instances: Instance[]): number => {
 
 export const getUniqueOrganizationsCount = (instances: Instance[]): number => {
   const uniqueOrganizations = new Set(
-    instances.map(instance => instance.organization)
+    instances.map(instance => instance.institution)
   );
   return uniqueOrganizations.size;
 };

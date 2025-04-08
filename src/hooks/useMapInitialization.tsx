@@ -77,14 +77,14 @@ export const useMapInitialization = ({
       ],
       view: new View({
         center: fromLonLat([0, 0]),
-        zoom: 2,
+        zoom: 0,
         extent: [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
       }),
       controls: defaultControls({
         zoom: false,
         rotate: false,
         attribution: true,
-      })
+      }),
     });
 
     const updateVisibleInstallations = () => {

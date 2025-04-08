@@ -11,6 +11,7 @@ interface MapContainerProps {
   onSelectInstallation: (installation: Installation | null) => void;
   onHoverInstallation: (installation: Installation | null) => void;
   setVisibleInstallations: (installations: Installation[]) => void;
+  small?: boolean
 }
 
 const MapContainer = ({
@@ -19,7 +20,8 @@ const MapContainer = ({
   hoveredInstallation,
   onSelectInstallation,
   onHoverInstallation,
-  setVisibleInstallations
+  setVisibleInstallations,
+    small
 }: MapContainerProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   
@@ -44,10 +46,23 @@ const MapContainer = ({
     };
   }, [installations]);
 
+  useEffect(() => {
+    if (!mapInstanceRef.current) return;
+    const map = mapInstanceRef.current
+    const handleResize = () => {
+      const view = map.getView();
+      view.setZoom(1)
+      view.setCenter([0,0])
+      map.updateSize()
+    }
+    window.addEventListener('resize', handleResize)
+  }, []);
+
   return (
-    <div className="w-[70%] h-full relative">
+    <div className={`${small ? 'w-full' : 'w-[70%]'} h-full relative`}>
       <div ref={mapRef} className="absolute inset-0" />
-      <MapControls map={mapInstanceRef.current} />
+      {!small &&
+      <MapControls map={mapInstanceRef.current} />}
     </div>
   );
 };

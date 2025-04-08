@@ -4,12 +4,15 @@ import HeroSection from "@/components/HeroSection";
 import MapSection from "@/components/MapSection";
 import AddInstallationSection from "@/components/AddInstallationSection";
 import Footer from "@/components/Footer";
-import { Instance } from "@/types/instance";
+import {useSearchParams} from "react-router-dom";
 
 const Index = () => {
   const [data, setData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
+
+  const [searchParams] = useSearchParams()
+  const isSmall = searchParams.get('small') === '1';
 
   useEffect(() => {
     // Fetch JSON from the public directory
@@ -32,6 +35,10 @@ const Index = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (isSmall) {
+    return <MapSection small={true} installations={data} />
+  }
 
   return (isLoaded &&
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">

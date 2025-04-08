@@ -9,9 +9,10 @@ import 'ol/ol.css';
 
 interface GlobeMapProps {
   installations: Instance[];
+  small?: boolean;
 }
 
-const GlobeMap = ({ installations }: GlobeMapProps) => {
+const GlobeMap = ({ installations, small }: GlobeMapProps) => {
   const {
     selectedInstance: selectedInstallation,
     hoveredInstance: hoveredInstallation,
@@ -30,8 +31,10 @@ const GlobeMap = ({ installations }: GlobeMapProps) => {
         onSelectInstallation={handleSelectInstallation}
         onHoverInstallation={handleHoverInstallation}
         setVisibleInstallations={setVisibleInstallations}
+        small={small}
       />
-      
+
+        {!small &&
       <DetailPanel 
         installations={installations}
         visibleInstallations={visibleInstallations}
@@ -39,12 +42,13 @@ const GlobeMap = ({ installations }: GlobeMapProps) => {
         hoveredInstallation={hoveredInstallation}
         onSelectInstallation={handleSelectInstallation}
         onHoverInstallation={handleHoverInstallation}
-      />
-      
+      />}
+
+        {!small &&
       <InstallationPopup 
         installation={selectedInstallation} 
         onClose={() => handleSelectInstallation(null)} 
-      />
+      />}
     </div>
   );
 };
