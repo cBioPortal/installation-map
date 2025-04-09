@@ -12,7 +12,7 @@ const InstallationPopup = ({ installation, onClose }: InstallationPopupProps) =>
   if (!installation) return null;
   
   return (
-    <div className="hidden lg:block absolute bottom-4 left-4 w-80 max-w-xs">
+    <div className="absolute bottom-4 left-4 w-80 max-w-xs">
       <InstallationDetails 
         installation={installation} 
         onClose={onClose} 
