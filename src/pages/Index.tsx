@@ -41,7 +41,7 @@ const Index = () => {
   }
 
   return (isLoaded &&
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col">
       <Header />
       
       <main>
@@ -53,8 +53,9 @@ const Index = () => {
           <AddInstallationSection />
         </div>
       </main>
-
-      <Footer />
+      <div className={"mt-auto"}>
+        <Footer />
+      </div>
     </div>
   );
 };

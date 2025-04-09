@@ -14,7 +14,7 @@ const InstallationStats = ({
   totalInstallations 
 }: InstallationStatsProps) => {
   return (
-    <div className="flex justify-between mb-5 text-sm bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg">
+    <div className="flex flex-wrap gap-2 lg:gap-0 justify-between mb-5 text-sm bg-gradient-to-r from-blue-50 to-blue-100 p-3 rounded-lg">
       <div className="flex items-center">
         <Globe className="mr-2 h-5 w-5 text-cbioportal-blue" />
         <div>

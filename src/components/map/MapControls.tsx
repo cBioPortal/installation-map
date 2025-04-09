@@ -19,14 +19,14 @@ const MapControls = ({ map }: MapControlsProps) => {
   };
 
   return (
-    <div className="absolute top-4 left-4 flex flex-col space-y-2 z-10">
+    <div className="hidden sm:flex absolute top-4 left-4 flex-col space-y-2 z-10">
       <Button 
         variant="outline" 
         size="icon" 
         onClick={handleZoomIn}
         className="bg-white/80 hover:bg-white/90 backdrop-blur-sm shadow-md transition-all duration-300 hover:scale-105 cursor-pointer"
       >
-        <ZoomIn className="h-5 w-5 text-gray-700" />
+        <ZoomIn className="h-10 w-10 text-gray-700" />
       </Button>
       <Button 
         variant="outline" 

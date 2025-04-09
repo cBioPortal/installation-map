@@ -59,7 +59,7 @@ const MapContainer = ({
   }, []);
 
   return (
-    <div className={`${small ? 'w-full' : 'w-[70%]'} h-full relative`}>
+    <div className={`${small ? 'w-full' : 'w-full md:w-[70%]'} h-full relative`}>
       <div ref={mapRef} className="absolute inset-0" />
       {!small &&
       <MapControls map={mapInstanceRef.current} />}

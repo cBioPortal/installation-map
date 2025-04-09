@@ -22,7 +22,7 @@ const DetailPanel = ({
   onHoverInstallation
 }: DetailPanelProps) => {
   return (
-    <div className="w-[30%] h-full overflow-auto bg-white/95 backdrop-blur-sm border-l border-gray-200 shadow-inner">
+    <div className="hidden md:block w-[30%] h-full overflow-auto bg-white/95 backdrop-blur-sm border-l border-gray-200 shadow-inner">
       <LocationsList 
         installations={visibleInstallations} 
         totalInstallations={installations.length}
