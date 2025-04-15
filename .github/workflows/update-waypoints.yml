@@ -42,9 +42,12 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git diff $WAYPOINTS_DEST
-          git add $WAYPOINTS_DEST
-          git commit -m "Update waypoints.json"
+          if ! git diff --quiet "$WAYPOINTS_DEST"; then
+            git add $WAYPOINTS_DEST
+            git commit -m "Update waypoints.json"
+          else
+            echo "No changes to commit."
+          fi
       - name: Push changes to repository
         uses: ad-m/github-push-action@master
         with:
