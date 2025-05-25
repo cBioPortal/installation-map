@@ -766,5 +766,13 @@
     "address": "Chennai, Tamil Nadu, India",
     "lng": 80.2704622,
     "lat": 13.0843007
+  },
+  {
+    "id": 212,
+    "institution": "Washington University",
+    "group": "Griffith Lab",
+    "address": "St. Louis, MO, USA",
+    "lng": -90.1982439,
+    "lat": 38.62742799999999
   }
 ]
