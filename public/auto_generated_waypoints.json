@@ -668,8 +668,8 @@
     "institution": "University of Birmingham",
     "group": "Andrew Beggs",
     "address": "Birmingham B15 2TT, UK",
-    "lng": -1.9278904,
-    "lat": 52.4532817
+    "lng": -1.9278958,
+    "lat": 52.4532672
   },
   {
     "id": 170,
@@ -774,5 +774,13 @@
     "address": "St. Louis, MO, USA",
     "lng": -90.1982439,
     "lat": 38.62742799999999
+  },
+  {
+    "id": 213,
+    "institution": "Vall d'Hebron Institute of Oncology (VHIO)",
+    "group": "Anna Pedrola - Data Engineering for Research Unit",
+    "address": "Barcelona, Spain",
+    "lng": 2.168568,
+    "lat": 41.3873974
   }
 ]
