@@ -92,8 +92,8 @@
     "institution": "Northwestern University",
     "group": "Jindan Yu",
     "address": "Chicago, IL, USA",
-    "lng": -87.6297982,
-    "lat": 41.8781136
+    "lng": -87.6323879,
+    "lat": 41.88325
   },
   {
     "id": 24,
@@ -172,8 +172,8 @@
     "institution": "Intersect Australia",
     "group": "",
     "address": "Sydney NSW, Australia",
-    "lng": 151.2092955,
-    "lat": -33.8688197
+    "lng": 151.2057136,
+    "lat": -33.8727409
   },
   {
     "id": 38,
@@ -380,8 +380,8 @@
     "institution": "University of Turin",
     "group": "Molecular Oncology",
     "address": "Turin, Metropolitan City of Turin, Italy",
-    "lng": 7.686856499999999,
-    "lat": 45.070312
+    "lng": 7.6868552,
+    "lat": 45.0703155
   },
   {
     "id": 76,
