@@ -790,5 +790,13 @@
     "address": "1455 Bells Ferry Rd # 100, Marietta, GA 30066, USA",
     "lng": -84.5556661,
     "lat": 33.9867203
+  },
+  {
+    "id": 220,
+    "institution": "Institut Curie",
+    "group": "Data Office",
+    "address": "Paris, France",
+    "lng": 2.3513765,
+    "lat": 48.8575475
   }
 ]
