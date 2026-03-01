@@ -798,5 +798,29 @@
     "address": "Paris, France",
     "lng": 2.3513765,
     "lat": 48.8575475
+  },
+  {
+    "id": 223,
+    "institution": "Institute for medical informatics",
+    "group": "Translational Research",
+    "address": "37 G\u00f6ttingen, Germany",
+    "lng": 9.915803499999999,
+    "lat": 51.54128040000001
+  },
+  {
+    "id": 226,
+    "institution": "CITADEL (CRCHUM)",
+    "group": "Justin Bellavance",
+    "address": "Montreal, QC, Canada",
+    "lng": -73.56739189999999,
+    "lat": 45.5018869
+  },
+  {
+    "id": 227,
+    "institution": "Universit\u00e4tsmedizin Halle",
+    "group": "AG (Bio-)Medical Data Science -> Jun.-Prof. Jan Christoph oder Iryna Manuilova",
+    "address": "06 Halle (Saale), Germany",
+    "lng": 11.9662371,
+    "lat": 51.49535669999999
   }
 ]
